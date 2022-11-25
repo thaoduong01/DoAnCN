@@ -1,0 +1,68 @@
+﻿@model DACHUYENNGANH.Models.HoSoVayDoanhNghiep
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoVayDoanhNghieps" asp-action="Index">Hồ Sơ Vay Doanh Nghiệp</a></li>
+                <li class="breadcrumb-item active">Thêm Hồ Sơ Vay Doanh Nghiệp</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thêm Hồ Sơ Vay Doanh Nghiệp</h1>
+        </div>
+        <form asp-action="Create" class="card shadow" style="margin: auto; width: 80%; padding: 10px; padding: 2rem">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Mã Hồ Sơ Vay</label>
+                <input type="text" class="form-control" asp-for="IdHsvay">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Nhân Viên</label>
+                <select asp-for="IdNhanVien" class="form-control" asp-items="ViewBag.IdNhanVien"></select>
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Doanh Nghiệp</label>
+                <select asp-for="IdDoanhNghiep" class="form-control" asp-items="ViewBag.IdDoanhNghiep"></select>
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Số Tiền Vay</label>
+                <input type="text" class="form-control" asp-for="SoTienVay">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Ngày Bắt Đầu</label>
+                <input type="date" class="form-control" asp-for="NgayBdvay">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Ngày Kết Thúc</label>
+                <input type="date" class="form-control" asp-for="NgayKt">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Lãi Suất</label>
+                <input type="text" class="form-control" asp-for="LaiSuat">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10" style="line-height: 5; text-align: center;">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <a asp-action="Index">Trở Về</a>
+            </div>
+        </form>
+    </main>
+</div>
+
+<style>
+
+    .form-group {
+        color: #1F618D;
+        font-weight: bold;
+        font-size: 15px;
+    }
+</style>

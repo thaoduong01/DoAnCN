@@ -1,0 +1,52 @@
+﻿@model DACHUYENNGANH.Models.CongTyThamDinh
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="KhachHangCaNhans" asp-action="Index">Khách Hàng Cá Nhân</a></li>
+                <li class="breadcrumb-item active">  Thông Tin Khách Hàng Cá Nhân</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">  Thông Tin Khách Hàng Cá Nhân</h1>
+            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+                <div class="card-body">
+                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                        <table style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                            <tbody>
+                                <tr>
+                                    <td>Mã Mã Công Ty Thẩm Định: </td>
+                                    <td style="padding:7px;">@Model.IdCongTy</td>
+                                </tr>
+                                <tr>
+                                    <td>Tên Công Ty: </td>
+                                    <td style="padding:7px;">@Model.TenCty</td>
+                                </tr>
+                                <tr>
+                                    <td>Email: </td>
+                                    <td style="padding: 7px;">@Model.Email</td>
+                                </tr>
+                                <tr>
+                                    <td>SĐT: </td>
+                                    <td style="padding:7px;">@Model.Sdt</td>
+                                </tr>
+                                <tr>
+                                    <td>Địa Chỉ: </td>
+                                    <td style="padding:7px;">@Model.DiaChi</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+            </div>
+        </div>
+    </main>
+</div>

@@ -1,0 +1,78 @@
+﻿@model DACHUYENNGANH.Models.HoSoTaiSanDb
+
+@{
+    ViewData["Title"] = "Create";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTaiSanĐảm Bảos" asp-action="Index">Hồ Sơ Tài Sản Đảm Bảo</a></li>
+                <li class="breadcrumb-item active">Thêm Thông Tin Hồ Sơ Tài Sản Đảm Bảo</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thêm Thông Tin Hồ Sơ Tài Sản Đảm Bảo</h1>
+        </div>
+        <form asp-action="Create" class="card shadow" style="margin: auto; width: 80%; padding: 10px; padding: 2rem">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Mã Hồ Sơ Vay</label>
+                <select asp-for="IdHsvay" class="form-control" asp-items="ViewBag.IdHsvay"></select>
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Loại Hồ Sơ Tài Sản Đảm Bảo</label>
+                <select asp-for="IdLoaiHs" class="form-control" asp-items="ViewBag.IdLoaiHs"></select>
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Sổ Nhà Đất</label>
+                <input type="text" class="form-control" asp-for="SoNhaDat">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Đơn Chứng Nhận Sở Hữu Đất</label>
+                <input type="text" class="form-control" asp-for="DcnsoHuuDat">
+                <span asp-validation-for="DcnsoHuuDat" class="text-danger"></span>
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Hóa Đơn Tài Sản</label>
+                <input type="text" class="form-control" asp-for="HdtaiSan">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Thông Báo Nộp Phí Nhà Đất</label>
+                <input type="text" class="form-control" asp-for="TbnopPhiNd">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Sổ Đăng Kiểm</label>
+                <input type="text" class="form-control" asp-for="SoDangKiem">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Chứng Nhận Bảo Hiểm</label>
+                <input type="text" class="form-control" asp-for="ChungNhanBaoHiem">
+            </div>
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Ngày Nhận Hồ Sơ</label>
+                <input type="date" class="form-control" asp-for="NgayNhanHs">
+            </div>
+            <div class="form-group row">
+                <div class="col-sm-10" style="line-height: 5; text-align: center;">
+                    <button type="submit" class="btn btn-primary">Thêm</button>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <a asp-action="Index">Trở Về</a>
+            </div>
+        </form>
+    </main>
+</div>
+
+
+<style>
+
+    .form-group {
+        color: #1F618D;
+        font-weight: bold;
+        font-size: 15px;
+    }
+</style>

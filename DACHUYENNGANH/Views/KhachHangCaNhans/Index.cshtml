@@ -1,0 +1,74 @@
+﻿@model IEnumerable<DACHUYENNGANH.Models.KhachHangCaNhan>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Danh Sách Khách Hàng Cá Nhân</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="KhachHangCaNhans" asp-action="Index">Khách Hàng Cá Nhân</a></li>
+                <li class="breadcrumb-item active">Danh Sách Khách Hàng Cá Nhân</li>
+            </ol>
+            <p class="btn btn-outline-secondary">
+                <a asp-action="Create">Create New</a>
+            </p>
+            <div class="card mb-4">
+
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatablesSimple" class="table">
+                            <thead>
+                                <tr>
+                                    @*<th scope="col">Mã Khách Hàng Cá Nhân</th>*@
+                                    <th scope="col">Mã Số Thuế </th>
+                                    <th scope="col">Tên Khách Hàng</th>
+                                    <th scope="col">Ngày Sinh</th>
+                                    <th scope="col">Giới Tính</th>
+                                    <th scope="col">SĐT</th>
+                                    <th scope="col">Địa Chỉ</th>
+                                    <th scope="col">CMND/CCCD</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            @*<td>@item.IdKhachHangCaNha</td>*@
+                                            <td>@item.IdKhachHangNavigation.MaSoThue</td>
+                                            <td>@item.TenKh</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
+                                            <td>@item.GioiTinh</td>
+                                            <td>@item.Sdt</td>
+                                            <td>@item.DiaChi</td>
+                                            <td>@item.CmndCccd</td>
+                                            <td>
+                                                <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdKhachHangCaNhan">Edit</a>
+                                                <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdKhachHangCaNhan">Details</a>
+                                                <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdKhachHangCaNhan">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
+

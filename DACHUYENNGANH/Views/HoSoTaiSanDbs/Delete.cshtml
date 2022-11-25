@@ -1,0 +1,105 @@
+﻿@model DACHUYENNGANH.Models.HoSoTaiSanDb
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <h1 class="mt-4">Xóa Thông Tin Hồ Sơ Tài Sản DB</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTaiSanDbs" asp-action="Index">Hồ Sơ Tài Sản DB</a></li>
+                <li class="breadcrumb-item active">Xóa Thông Tin Hồ Sơ Tài Sản DB</li>
+            </ol>
+            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+                <div class="card-body">
+                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Mã Hồ Sơ Tài Sản DB: </td>
+                                    <td style="padding:7px;">@Model.IdHsdb</td>
+                                </tr>
+                                <tr>
+                                    <td>Mã Hồ Sơ Vay: </td>
+                                    <td style="padding:7px;">@Model.IdHsvay</td>
+                                </tr>
+                                <tr>
+                                    <td>Loại Hồ Sơ Tài Sản Đảm Bảo: </td>
+                                    <td style="padding:7px;">@Model.IdLoaiHs</td>
+                                </tr>
+                                <tr>
+                                    <td>Sổ Nhà Đất: </td>
+                                    <td style="padding: 7px;">@Model.SoNhaDat</td>
+                                </tr>
+                                <tr>
+                                    <td>Đơn Chứng Nhận Sở Hữu Đất: </td>
+                                    <td style="padding:7px;">@Model.DcnsoHuuDat</td>
+                                </tr>
+                                <tr>
+                                    <td>Hóa Đơn Tài Sản: </td>
+                                    <td style="padding:7px;">@Model.HdtaiSan</td>
+                                </tr>
+                                <tr>
+                                    <td>Thông Báo Nộp Phí Nhà Đất: </td>
+                                    <td style="padding:7px;">@Model.TbnopPhiNd</td>
+                                </tr>
+                                <tr>
+                                    <td>Sổ Đăng Kiểm: </td>
+                                    <td style="padding:7px;">@Model.SoDangKiem</td>
+                                </tr>
+                                <tr>
+                                    <td>Chứng Nhận Bảo Hiểm: </td>
+                                    <td style="padding:7px;">@Model.ChungNhanBaoHiem</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Nhận Hồ Sơ: </td>
+                                    <td style="padding:7px;">@Html.DisplayFor(model => model.NgayNhanHs)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            @*<form asp-action="Delete" style="text-align: center;">
+                <input type="hidden" asp-for="IdHsdb" />
+                <input type="submit" value="Xóa" class="btn btn-danger" /> |
+                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+            </form>*@
+
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
+                Xóa
+            </button>|
+            <a class="btn btn-primary" asp-area="Admin" asp-action="Index">Trở Về</a>
+
+            <!-- Modal -->
+            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="deleteModalLabel">Thông Báo Xóa</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            Bạn có chắc muốn xóa @Model.IdHsdb
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                            <form asp-action="Delete" style="text-align: center;">
+                                <input type="hidden" asp-for="IdHsdb" />
+                                <input type="submit" value="Xóa" class="btn btn-danger" />
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+

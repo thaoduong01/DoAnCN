@@ -1,0 +1,69 @@
+﻿@model DACHUYENNGANH.Models.HoSoThamDinh
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoThamDinhs" asp-action="Index">Hồ Sơ Thẩm Định</a></li>
+                <li class="breadcrumb-item active">Thông Tin Hồ Sơ Thẩm Định</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Thẩm Định</h1>
+            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+                <div class="card-body">
+                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                        <table style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                            <tbody>
+                                <tr>
+                                    <td>Mã Hồ Sơ Thẩm Định: </td>
+                                    <td style="padding:7px;">@Model.IdHsthamDinh</td>
+                                </tr>
+                                <tr>
+                                    <td>Tên Công Ty: </td>
+                                    <td style="padding: 7px;">@Model.IdCongTyNavigation.TenCty</td>
+                                </tr>
+                                <tr>
+                                    <td>Hồ Sơ Đảm Bảo: </td>
+                                    <td style="padding:7px;">@Model.IdHsdb</td>
+                                </tr>
+                                <tr>
+                                    <td>Số Tiền Thẩm Định: </td>
+                                    <td style="padding:7px;">@Model.SoTienThamDinh</td>
+                                </tr>
+                                <tr>
+                                    <td>Người Thẩm Định: </td>
+                                    <td style="padding: 7px;">@Model.TenNguoiThamDinh</td>
+                                </tr>
+                                <tr>
+                                    <td>CMND/CCCD: </td>
+                                    <td style="padding: 7px;">@Model.CmndCccd</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Thẩm Định: </td>
+                                    <td style="padding:7px;">@Html.DisplayFor(model => model.NgayThamDinh)</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Nhận Hồ Sơ: </td>
+                                    <td style="padding:7px;">@Html.DisplayFor(model => model.NgayNhanHoSo)</td>
+                                </tr>
+                                <tr>
+                                    <td>Báo Cáo Thẩm Định: </td>
+                                    <td style="padding: 7px;">@Model.BaoCaoThamDinh</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                <a asp-action="Edit" asp-route-id="@Model.IdHsthamDinh">Edit</a>
+                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+            </div>
+        </div>
+    </main>
+</div>

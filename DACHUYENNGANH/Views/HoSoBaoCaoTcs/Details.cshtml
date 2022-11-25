@@ -1,0 +1,64 @@
+﻿@model DACHUYENNGANH.Models.HoSoBaoCaoTc
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoBaoCaoTcs" asp-action="Edit">Hồ Sơ Báo Cáo Tài Chính</a></li>
+                <li class="breadcrumb-item active">Thông Tin Hồ Sơ Báo Cáo Tài Chính</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Hồ Sơ Báo Cáo Tài Chính</h1>
+            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+                <div class="card-body">
+                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                        <table>
+                            <tbody style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                                <tr>
+                                    <td>Mã Hồ Sơ Báo Cáo Tài Chính: </td>
+                                    <td style="padding: 7px;">@Model.IdBctc</td>
+                                </tr>
+                                <tr>
+                                    <td>Hồ Sơ Vay Doanh Nghiệp: </td>
+                                    <td style="padding:7px;">@Model.IdHsvay</td>
+                                </tr>
+                                <tr>
+                                    <td>Hợp Đồng SDLD: </td>
+                                    <td style="padding:7px;">@Model.HopDongSdld</td>
+                                </tr>
+                                <tr>
+                                    <td>Hợp Đồng Mua Bán: </td>
+                                    <td style="padding: 7px;">@Model.HopDongMuaBan</td>
+                                </tr>
+                                <tr>
+                                    <td>Thuế: </td>
+                                    <td style="padding: 7px;">@Model.ToVat</td>
+                                </tr>
+                                <tr>
+                                    <td>Sao Kê TKNH: </td>
+                                    <td style="padding:7px;">@Model.SaoKeTknh</td>
+                                </tr>
+                                <tr>
+                                    <td>Ngày Nhận Hồ Sơ: </td>
+                                    <td style="padding:7px;">@Html.DisplayFor(model => model.NgayNhanHs)</td>
+                                </tr>
+                                <tr>
+                                    <td>Báo Cáo Tài Chính: </td>
+                                    <td style="padding:7px;">@Model.BctaiChinh</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+            </div>
+        </div>
+    </main>
+</div>

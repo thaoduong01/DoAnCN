@@ -1,0 +1,86 @@
+﻿@model IEnumerable<DACHUYENNGANH.Models.HoSoBaoCaoTc>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Hồ Sơ Báo Cáo Tài Chính</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoBaoCaoTcs" asp-action="Edit">Hồ Sơ Báo Cáo Tài Chính</a></li>
+                <li class="breadcrumb-item active">Danh Sách Hồ Sơ Báo Cáo Tài Chính</li>
+            </ol>
+            <p class="btn btn-outline-secondary">
+                <a asp-action="Create">Create New</a>
+            </p>
+            <div class="card mb-4">
+
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatablesSimple" class="table">
+                            <thead>
+                                <tr>
+                                    @*<th scope="col">Mã HSBC</th>*@
+                                    <th scope="col">Hồ Sơ Vay DN</th>
+                                    <th scope="col">Hợp Đồng SDLD</th>
+                                    <th scope="col">Hợp Đồng Mua Bán</th>
+                                    <th scope="col">Thuế</th>
+                                    <th scope="col">Sao Kê TKNH</th>
+                                    <th scope="col">Ngày Nhận Hồ Sơ</th>
+                                    <th scope="col">Báo Cáo Tài Chính</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            @*<tfoot>
+                            <tr>
+                            <th scope="col">Mã HSBC</th>
+                            <th scope="col">Hồ Sơ Vay DN</th>
+                            <th scope="col">Hợp Đồng SDLD</th>
+                            <th scope="col">Hợp Đồng Mua Bán</th>
+                            <th scope="col">Thuế</th>
+                            <th scope="col">Sao Kê TKNH</th>
+                            <th scope="col">Ngày Nhận Hồ Sơ</th>
+                            <th scope="col">Báo Cáo Tài Chính</th>
+                            <th scope="col"></th>
+                            </tr>
+                            </tfoot>*@
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            @*<td>@item.IdBctc</td>*@
+                                            <td>@item.IdHsvay</td>
+                                            <td>@item.HopDongSdld</td>
+                                            <td>@item.HopDongMuaBan</td>
+                                            <td>@item.ToVat</td>
+                                            <td>@item.SaoKeTknh</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NgayNhanHs)</td>
+                                            <td>@item.BctaiChinh</td>
+                                            <td>
+                                                <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdBctc">Edit</a>
+                                                <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdBctc">Details</a>
+                                                <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdBctc">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>

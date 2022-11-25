@@ -1,0 +1,72 @@
+﻿@model DACHUYENNGANH.Models.NhanVien
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="AdminNhanViens" asp-action="Edit">Nhân Viên</a></li>
+                <li class="breadcrumb-item active">Thông Tin Nhân Viên</li>
+            </ol>
+            <h1 class="mt-4" style="color:  #1F618D;font-weight: bold;">
+                Thông Tin Nhân Viên
+            </h1>
+        </div>
+        <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 10px;line-height: 2.5;">
+            <div class="card-body">
+                <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <td>Nhân Viên: </td>
+                                <td style="padding: 7px;">@Model.TenNhanVien</td>
+                            </tr>
+                            <tr>
+                                <td>Mã Nhân Viên: </td>
+                                <td style="padding:7px;">@Model.IdNhanVien</td>
+                            </tr>
+                            <tr>
+                                <td>Ngày Sinh: </td>
+                                <td style="padding:7px;">@Html.DisplayFor(model => model.NgaySinh)</td>
+                            </tr>
+                            <tr>
+                                <td>Giới Tính: </td>
+                                <td style="padding:7px;">@Model.GioiTinh</td>
+                            </tr>
+                            <tr>
+                                <td>CMND/CCCD: </td>
+                                <td style="padding: 7px;">@Model.CmndCccd</td>
+                            </tr>
+                            <tr>
+                                <td>SĐT: </td>
+                                <td style="padding: 7px;">@Model.Sdt</td>
+                            </tr>
+                            <tr>
+                                <td>Email: </td>
+                                <td style="padding:7px;">@Model.Email</td>
+                            </tr>
+                            <tr>
+                                <td>Chức Vụ: </td>
+                                <td style="padding:7px;">@Model.IdChucVuNavigation.TenChucVu</td>
+                            </tr>
+                            
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div>
+                <a asp-action="Index">Trở Về</a>
+            </div>
+        </div>
+    </main>
+
+</div>
+
+
+

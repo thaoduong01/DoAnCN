@@ -1,0 +1,124 @@
+﻿@model IEnumerable<DACHUYENNGANH.Models.HoSoBaoCaoTc>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Hồ Sơ Báo Cáo Tài Chính</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoBaoCaoTcs" asp-action="Edit">Hồ Sơ Báo Cáo Tài Chính</a></li>
+                <li class="breadcrumb-item active">Danh Sách Hồ Sơ Báo Cáo Tài Chính</li>
+            </ol>
+             <p class="btn btn-outline-secondary">
+                <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
+            </p>
+            <div class="card mb-4">
+
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="dataTable_length">
+                                    <label>
+                                        Search:
+                                        <form method="get" asp-action="Index">
+                                            <div class="input-group rounded">
+                                                <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." @*value="@ViewData["Getnhanviendetails"]"*@ name="search" />
+                                            </div>
+                                        </form>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="dataTable_filter" class="dataTables_filter">
+                                    <label>
+                                        <br />
+                                        <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
+                                        <form method="get" asp-action="Index">
+                                            <div class="input-group-append">
+                                                <select asp-items="@(new SelectList(ViewBag.HoSoVay, "IdHsvay", "IdDoanhNghiep"))" name="id" class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option>Chọn Chức Vụ</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fas fa-search fa-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            @*<th scope="col">Mã HSBC</th>*@
+                                            <th scope="col">Hồ Sơ Vay DN</th>
+                                            <th scope="col">Hợp Đồng SDLD</th>
+                                            <th scope="col">Hợp Đồng Mua Bán</th>
+                                            <th scope="col">Thuế</th>
+                                            <th scope="col">Sao Kê TKNH</th>
+                                            <th scope="col">Ngày Nhận Hồ Sơ</th>
+                                            <th scope="col">Báo Cáo Tài Chính</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    @*<tfoot>
+                                    <tr>
+                                    <th scope="col">Mã HSBC</th>
+                                    <th scope="col">Hồ Sơ Vay DN</th>
+                                    <th scope="col">Hợp Đồng SDLD</th>
+                                    <th scope="col">Hợp Đồng Mua Bán</th>
+                                    <th scope="col">Thuế</th>
+                                    <th scope="col">Sao Kê TKNH</th>
+                                    <th scope="col">Ngày Nhận Hồ Sơ</th>
+                                    <th scope="col">Báo Cáo Tài Chính</th>
+                                    <th scope="col"></th>
+                                    </tr>
+                                    </tfoot>*@
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tbody>
+                                                <tr>
+                                                    @*<td>@item.IdBctc</td>*@
+                                                    <td>@item.IdHsvay</td>
+                                                    <td>@item.HopDongSdld</td>
+                                                    <td>@item.HopDongMuaBan</td>
+                                                    <td>@item.ToVat</td>
+                                                    <td>@item.SaoKeTknh</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.NgayNhanHs)</td>
+                                                    <td>@item.BctaiChinh</td>
+                                                    <td>
+                                                        <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdBctc"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdBctc"><i class="fa-solid fa-circle-info"></i></a>
+                                                        <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdBctc"><i class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>

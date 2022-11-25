@@ -1,0 +1,202 @@
+﻿@model IEnumerable<DACHUYENNGANH.Models.ChucVu>
+
+@*@model X.PagedList.IPagedList<DACHUYENNGANH.Models.ChucVu>
+@using X.PagedList
+@using X.PagedList.Mvc
+@using X.PagedList.Mvc.Core*@
+
+@{
+    //int CurrentPage = ViewBag.CurrentPage;
+    ViewData["Title"] = "Index" /*+ CurrentPage*/;
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Danh Sách Chức Vụ</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="ChucVus" asp-action="Index">Chức Vụ @*: page @CurrentPage*@</a></li>
+                <li class="breadcrumb-item active">Danh Sách Chức Vụ</li>
+            </ol>
+             <p class="btn btn-outline-secondary">
+                <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
+            </p>
+            <div class="card mb-4">
+
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                Danh sách
+            </div>
+            <div class="card-body">
+                <div class="table-responsive">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6">
+                            <div class="dataTables_length" id="dataTable_length">
+                                <label>
+                                    Show
+                                    <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
+                                        <option value="10">5</option>
+                                        <option value="25">10</option>
+                                        <option value="50">15</option>
+                                        <option value="100">20</option>
+                                    </select>
+                                    entries
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-6">
+                            <div id="dataTable_filter" class="dataTables_filter">
+                                <label>
+                                        Search: 
+                                    <form method="get" asp-action="Index">
+                                        <div class="input-group rounded">
+                                            <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" value="@ViewData["Getchucvudetails"]" name="search" />
+                                                <span class="input-group-text border-0" id="search-addon">
+                                                <a asp-action="Index">Get All</a>
+                                                </span>
+                                        </div>
+                                    </form>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <table id="dataTable" class="table table-bordered dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <thead>
+                                    <tr>
+                                        @*<th scope="col">Mã Chức Vụ</th>*@
+                                        <th scope="col">Tên Chức Vụ</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                @if (Model != null)
+                                {
+                                    @foreach (var item in Model)
+                                    {
+                                        <tbody>
+                                            <tr>
+                                                @*<td>@item.IdChucVu</td>*@
+                                                <td>@item.TenChucVu</td>
+                                                <td>
+                                                    <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdChucVu"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                    <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdChucVu"><i class="fa-solid fa-circle-info"></i></a>
+                                                    <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdChucVu"><i class="fa-solid fa-trash"></i></a>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+
+                                    }
+                                }
+                            </table>
+                        </div>
+                        <script type="text/javascript">
+                            $(document).ready(function () {
+                                $('#dataTable').DataTable();
+                            }
+                        </script>
+
+                    </div>
+                    <div>
+                        @*@Html.PagedListPager(Model, page => Url.Action("Index", "ChucVus", new{page}))*@
+                    </div>
+                </div>
+                    <div class="col-sm-12 col-md-7" style="float: right;">
+                        <div class="pagination">
+                            <a href="#">«</a>
+                            <a href="#">1</a>
+                            <a class="active" href="#">2</a>
+                            <a href="#">3</a>
+                            <a href="#">4</a>
+                            <a href="#">5</a>
+                            <a href="#">6</a>
+                            <a href="#">»</a>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+</div>
+<style>
+    /* thiết lập style cho thẻ a */
+    .pagination a {
+        color: black;
+        float: left;
+        padding: 12px 18px;
+        text-decoration: none;
+    }
+        /* thiết lập style cho class active */
+        .pagination a.active {
+            background-color: dodgerblue;
+            color: white;
+            /*Thiết kế hình tròn với CSS*/
+            border-radius: 50%;
+        }
+        /* thêm màu nền khi người dùng hover vào class không active */
+        .pagination a:hover:not(.active) {
+            background-color: #ddd;
+            /*Thiết kế hình tròn với CSS*/
+            border-radius: 50%;
+        }
+</style>
+
+
+<link href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css" rel="stylesheet" />
+<link href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css" rel="stylesheet" />
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+<script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap4.min.js"></script>
+
+@*<script type="text/javascript">
+    $(document).ready(function () {
+        $('#dataTable').DataTable({
+            "ajax": {
+                "url": "/ChucVus/Index",
+                "type": "POST",
+                "datatype": "json"
+            },
+            "columns": [
+                { "data": "IdChucVu"/*, "name": "IdChucVu", "autoWidth": true*/ },
+                { "data": "TenChucVu"/*, "name": "Name", "autoWidth": true*/ },
+                {
+                //    "data": 'id', render: function (data, type, full, meta) { return '<a class="btn btn-info" href="Admin/ChucVus/Edit/' + full.IdChucVu + '">Edit</a>'; }
+                //},
+                //{
+                //    "data": null,
+                //    render: function (data, type, row) {
+                //        return "<a href='#' class='btn btn-danger' onclick=DeleteData('" + row.IdChucVu + "'); >Delete</a>";
+                //    }
+                //},
+            ]
+
+        });
+    });
+
+    function DeleteData(IdChucVu) {
+        if (confirm("Are you sure you want to delete ...?")) {
+            Delete(IdChucVu);
+        } else {
+            return false;
+        }
+    }
+
+
+    function Delete(IdChucVu) {
+        var url = '@Url.Content("~/")' + "ChucVus/Delete";
+
+        $.post(url, { ID: IdChucVu }, function (data) {
+            if (data) {
+                oTable = $('#dataTable').DataTable();
+                oTable.draw();
+            } else {
+                alert("Something Went Wrong!");
+            }
+        });
+    }
+</script>*@

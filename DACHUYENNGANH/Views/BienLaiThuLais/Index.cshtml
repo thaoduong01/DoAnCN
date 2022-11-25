@@ -1,0 +1,77 @@
+﻿@model IEnumerable<DACHUYENNGANH.Models.BienLaiThuLai>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Biên Lai Thu Lãi</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="BienLaiThuLais" asp-action="Edit">Biên Lai Thu Lãi</a></li>
+                <li class="breadcrumb-item active">Danh Sách Biên Lai Thu Lãi</li>
+            </ol>
+            <p class="btn btn-outline-secondary">
+                <a asp-action="Create">Create New</a>
+            </p>
+            <div class="card mb-4">
+
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatablesSimple" class="table">
+                            <thead>
+                                <tr>
+                                    @*<th scope="col">Mã HSBC</th>*@
+                                    <th scope="col">Nhân Viên</th>
+                                    <th scope="col">Hồ Sơ Vay</th>
+                                    <th scope="col">Ngày Nhận Lãi</th>
+                                    <th scope="col">Dư Nợ</th>
+                                    <th scope="col">Lãi Ký Kê</th>
+                                    <th scope="col">Góc Ký Kê</th>
+                                    <th scope="col">Lãi Suất</th>
+                                    <th scope="col">Tiền Gốc</th>
+                                    <th scope="col">Số Tiền Đóng</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            @*<td>@item.IdBienLai</td>*@
+                                            <td>@item.IdNhanVienNavigation.TenNhanVien</td>
+                                            <td>@item.IdHsvay</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NgayNhanLai)</td>
+                                            <td>@item.DuNo</td>
+                                            <td>@item.LaiKyKe</td>
+                                            <td>@item.GocKyKe</td>
+                                            <td>@item.LaiSuat</td>
+                                            <td>@item.TienGoc</td>
+                                            <td>@item.SoTienDong</td>
+                                            <td>
+                                                <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdBienLai">Edit</a>
+                                                <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdBienLai">Details</a>
+                                                <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdBienLai">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>

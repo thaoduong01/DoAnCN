@@ -1,0 +1,67 @@
+﻿@model IEnumerable<DACHUYENNGANH.Models.HoSoPhuongAnVay>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4">
+            <h1 class="mt-4">Danh Sách Hồ Sơ Phương Án Vay</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoPhuongAnVays" asp-action="Index">Hồ Sơ Phương Án Vay</a></li>
+                <li class="breadcrumb-item active">Danh Sách Hồ Sơ Phương Án Vay</li>
+            </ol>
+            <p class="btn btn-outline-secondary">
+                <a asp-action="Create">Create New</a>
+            </p>
+            <div class="card mb-4">
+
+                <div class="card-header">
+                    <i class="fas fa-table me-1"></i>
+                    Danh sách
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="datatablesSimple" class="table">
+                            <thead>
+                                <tr>
+                                    @*<th scope="col">Mã Hồ Sơ Phương Án Vay</th>*@
+                                    <th scope="col">Hồ Sơ Vay</th>
+                                    <th scope="col">Phương Án Kinh Doanh</th>
+                                    <th scope="col">Kế Hoạch Trả Nợ</th>
+                                    <th scope="col">Ngày Nhận Hồ Sơ</th>
+                                    <th scope="col"></th>
+                                </tr>
+                            </thead>
+                            @if (Model != null)
+                            {
+                                @foreach (var item in Model)
+                                {
+                                    <tbody>
+                                        <tr>
+                                            @*<td>@item.IdPhapLy</td>*@
+                                            <td>@item.IdHsvay</td>
+                                            <td>@item.PhuongAnKd</td>
+                                            <td>@item.KeHoachTraNo</td>
+                                            <td>@Html.DisplayFor(modelItem => item.NgayNhanHs)</td>
+                                            <td>
+                                                <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdHspavay">Edit</a>
+                                                <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdHspavay">Details</a>
+                                                <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdHspavay">Delete</a>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+
+                                }
+                            }
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+</div>
