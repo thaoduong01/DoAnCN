@@ -29,24 +29,34 @@
                             <div class="col-sm-12 col-md-6">
                                 <div class="dataTables_length" id="dataTable_length">
                                     <label>
-                                        Show
-                                        <select name="dataTable_length" aria-controls="dataTable" class="custom-select custom-select-sm form-control form-control-sm">
-                                            <option value="10">5</option>
-                                            <option value="25">10</option>
-                                            <option value="50">15</option>
-                                            <option value="100">20</option>
-                                        </select>
-                                        entries
+                                        Search:
+                                        <form method="get" asp-action="Index">
+                                            <div class="input-group rounded">
+                                                <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." @*value="@ViewData["Getnhanviendetails"]"*@ name="search" />
+                                            </div>
+                                        </form>
                                     </label>
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
                                 <div id="dataTable_filter" class="dataTables_filter">
                                     <label>
-                                        Search:
-                                        <input type="search" class="form-control form-control-sm" placeholder="" aria-controls="dataTable">
+                                        <br />
+                                        <form method="get" asp-action="Index">
+                                            <div class="input-group-append">
+                                                <select asp-items="@(new SelectList(ViewBag.HoSoTD, "IdHstinDung", "IdHstinDung"))" name="id" class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option>Chọn Chức Vụ</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fas fa-search fa-sm"></i>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </label>
                                 </div>
+                                <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
                             </div>
                         </div>
                         <div class="row">

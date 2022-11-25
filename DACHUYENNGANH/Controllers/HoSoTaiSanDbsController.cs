@@ -25,6 +25,47 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, int id)
+        {
+            ViewData["Getphaplydetails"] = search;
+
+            //var baocao = from x in _context.HoSoBaoCaoTcs select x;
+
+            ViewBag.LoaiHSDB = _context.LoaiHoSoTsdbs;
+            var ket = from s in _context.HoSoTaiSanDbs
+                      join i in _context.HoSoVayDoanhNghieps
+                      on s.IdHsvay equals i.IdHsvay
+                      select new { s.IdHsvay, s.IdLoaiHs, s.NgayNhanHs, s.ChungNhanBaoHiem, s.DcnsoHuuDat, s.SoNhaDat, s.HdtaiSan, s.IdHsdb, s.SoDangKiem, s.TbnopPhiNd };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ket = ket.Where(x => x.SoDangKiem.Contains(search) || x.IdHsvay.Contains(search));
+
+            }
+            if (id != 0)
+            {
+                ket = ket.Where(x => x.IdLoaiHs == id);
+            }
+            List<HoSoTaiSanDb> hoSoTaiSanDbs = new List<HoSoTaiSanDb>();
+            foreach (var k in ket)
+            {
+                HoSoTaiSanDb hsts = new HoSoTaiSanDb();
+                hsts.IdHsdb = k.IdHsdb;
+                hsts.IdLoaiHs = k.IdLoaiHs;
+                hsts.IdHsvay = k.IdHsvay;
+                hsts.ChungNhanBaoHiem = k.ChungNhanBaoHiem;
+                hsts.DcnsoHuuDat = k.DcnsoHuuDat;
+                hsts.SoNhaDat = k.SoNhaDat;
+                hsts.HdtaiSan = k.HdtaiSan;
+                hsts.SoDangKiem = k.SoDangKiem;
+                hsts.TbnopPhiNd = k.TbnopPhiNd;
+                hsts.NgayNhanHs = k.NgayNhanHs;
+                hoSoTaiSanDbs.Add(hsts);
+            }
+            return View(hoSoTaiSanDbs);
+        }
+
         // GET: HoSoTaiSanDbs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,7 +101,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdHsdb,DcnsoHuuDat,HdtaiSan,SoNhaDat,TbnopPhiNd,SoDangKiem,ChungNhanBaoHiem,NgayNhanHs,IdLoaiHs,IdHsvay")] HoSoTaiSanDb hoSoTaiSanDb)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(hoSoTaiSanDb);
                 await _context.SaveChangesAsync();
@@ -101,7 +142,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

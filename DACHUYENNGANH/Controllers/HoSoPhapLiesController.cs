@@ -25,6 +25,46 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, string id)
+        {
+            ViewData["Getphaplydetails"] = search;
+
+            //var baocao = from x in _context.HoSoBaoCaoTcs select x;
+
+            ViewBag.HoSoVay = _context.HoSoVayDoanhNghieps;
+            var ket = from s in _context.HoSoPhapLies
+                      join i in _context.HoSoVayDoanhNghieps
+                      on s.IdHsvay equals i.IdHsvay
+                      select new { s.IdHsvay, s.IdPhapLy, s.NgayNhanHs, s.DieuLeCty, s.BbhopHd, s.CmndCccdKtt, s.Gcndkthue, s.Gdkkd, s.TenKttruong };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ket = ket.Where(x => x.IdHsvay.Contains(search) || x.TenKttruong.Contains(search));
+
+            }
+            if (id != null)
+            {
+                ket = ket.Where(x => x.IdHsvay == id);
+            }
+            List<HoSoPhapLy> hoSoPhapLies = new List<HoSoPhapLy>();
+            foreach (var k in ket)
+            {
+                HoSoPhapLy hspl = new HoSoPhapLy();
+                hspl.IdPhapLy = k.IdPhapLy;
+                hspl.IdHsvay = k.IdHsvay;
+                hspl.DieuLeCty = k.DieuLeCty;
+                hspl.TenKttruong = k.TenKttruong;
+                hspl.CmndCccdKtt = k.CmndCccdKtt;
+                hspl.BbhopHd = k.BbhopHd;
+                hspl.Gcndkthue = k.Gcndkthue;
+                hspl.Gdkkd = k.Gdkkd;
+                hspl.NgayNhanHs = k.NgayNhanHs;
+                hoSoPhapLies.Add(hspl);
+            }
+            return View(hoSoPhapLies);
+        }
+
         // GET: HoSoPhapLies/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -58,7 +98,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdPhapLy,Gdkkd,DieuLeCty,BbhopHd,TenKttruong,CmndCccdKtt,NgayNhanHs,Gcndkthue,IdHsvay")] HoSoPhapLy hoSoPhapLy)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(hoSoPhapLy);
                 await _context.SaveChangesAsync();
@@ -97,7 +137,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

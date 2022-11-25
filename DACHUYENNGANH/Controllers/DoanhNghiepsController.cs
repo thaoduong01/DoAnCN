@@ -25,6 +25,20 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search)
+        {
+            ViewData["Getdoanhnghiepndetails"] = search;
+
+            var doanhNghieps = from x in _context.DoanhNghieps select x;
+            if (!string.IsNullOrEmpty(search))
+            {
+                doanhNghieps = doanhNghieps.Where(x => x.TenDoanhNghiep.Contains(search) || x.IdDoanhNghiep.Contains(search));
+
+            }
+            return View(doanhNghieps);
+        }
+
         // GET: DoanhNghieps/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -58,7 +72,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("TenDoanhNghiep,DiaChi,Sdt,TenNguoiDaiDien,CmndCccd,Email,IdDoanhNghiep,IdKhachHang")] DoanhNghiep doanhNghiep)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(doanhNghiep);
                 await _context.SaveChangesAsync();
@@ -97,7 +111,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

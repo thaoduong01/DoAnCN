@@ -42,11 +42,10 @@
                                 <div id="dataTable_filter" class="dataTables_filter">
                                     <label>
                                         <br />
-                                        <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
                                         <form method="get" asp-action="Index">
                                             <div class="input-group-append">
                                                 <select asp-items="@(new SelectList(ViewBag.HoSoVay, "IdHsvay", "IdDoanhNghiep"))" name="id" class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option>Chọn Chức Vụ</option>
+                                                    <option>Chọn Doanh Nghiệp</option>
                                                 </select>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary" type="submit">
@@ -57,6 +56,7 @@
                                         </form>
                                     </label>
                                 </div>
+                                <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
                             </div>
                         </div>
                         <div class="row">

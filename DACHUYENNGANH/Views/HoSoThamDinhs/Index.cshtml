@@ -10,13 +10,13 @@
         <div class="container-fluid px-4">
             <h1 class="mt-4">Danh Sách Hồ Sơ Thẩm Định</h1>
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoThamDinhs" asp-action="Index">Hồ Sơ Thẩm Định</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoThamDinhs" asp-action="Index">Hồ Sơ Thẩm Định</a></li>
                 <li class="breadcrumb-item active">Danh Sách Hồ Sơ Thẩm Định</li>
             </ol>
-            <button type="button" class="btn btn-outline-secondary" data-toggle="ajax-modal"@* data-target="#addModal" data-url="@Url.Action("Create")"*@>
-                <a asp-action="Create">Create New</a>
-            </button>
+            <p class="btn btn-outline-secondary">
+                <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
+            </p>
             <div class="card mb-4">
 
                 <div class="card-header">
@@ -25,70 +25,108 @@
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
-                        <table id="datatablesSimple" class="table">
-                            <thead>
-                                <tr>
-                                    @*<th scope="col">Mã Hồ Sơ Thẩm Định</th>*@
-                                    <th scope="col">Tên Công Ty</th>
-                                    <th scope="col">Hồ Sơ Đảm Bảo</th>
-                                    <th scope="col">Số Tiền Thẩm Định</th>
-                                    <th scope="col">Người Thẩm Định</th>
-                                    <th scope="col">CMND/CCCD</th>
-                                    <th scope="col">Ngày Nhận Hồ Sơ</th>
-                                    <th scope="col">Ngày Thẩm Định</th>
-                                    <th scope="col">Báo Cáo Thẩm Định</th>
-                                    <th scope="col"></th>
-                                </tr>
-                            </thead>
-                            @if (Model != null)
-                            {
-                                @foreach (var item in Model)
-                                {
-                                    <tbody>
-                                        <tr>
-                                            @*<td>@item.IdHsthamDinh</td>*@
-                                            <td>@item.IdCongTyNavigation.TenCty</td>
-                                            <td>@item.IdHsdb</td>
-                                            <td>@item.SoTienThamDinh</td>
-                                            <td>@item.TenNguoiThamDinh</td>
-                                            <td>@item.CmndCccd</td>
-                                            <td>@Html.DisplayFor(modelItem => item.NgayNhanHoSo)</td>
-                                            <td>@Html.DisplayFor(modelItem => item.NgayThamDinh)</td>
-                                            <td>@item.BaoCaoThamDinh</td>
-                                            <td>
-                                                <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdHsthamDinh">Edit</a>
-                                                <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdHsthamDinh">Details</a>
-                                                <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdHsthamDinh" data-toggle="modal" data-target="#deleteModal">Delete</a>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-
-                                    <!-- Modal -->
-                                    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog" role="document">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="deleteModalLabel">Thông Báo Xóa</h5>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
+                        <div class="row">
+                            <div class="col-sm-12 col-md-6">
+                                <div class="dataTables_length" id="dataTable_length">
+                                    <label>
+                                        Search:
+                                        <form method="get" asp-action="Index">
+                                            <div class="input-group rounded">
+                                                <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Tên Người Thẩm Định" @*value="@ViewData["Getnhanviendetails"]"*@ name="search" />
+                                            </div>
+                                        </form>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-md-6">
+                                <div id="dataTable_filter" class="dataTables_filter">
+                                    <label>
+                                        <br />
+                                        <form method="get" asp-action="Index">
+                                            <div class="input-group-append">
+                                                <select asp-items="@(new SelectList(ViewBag.CongTy, "IdCongTy", "TenCty"))" name="id" class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option>Chọn Công Ty</option>
+                                                </select>
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-primary" type="submit">
+                                                        <i class="fas fa-search fa-sm"></i>
                                                     </button>
                                                 </div>
-                                                <div class="modal-body">
-                                                    Bạn có chắc muốn xóa @item.IdHsthamDinh
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                                                    <form asp-action="Delete" style="text-align: center;">
-                                                        <input type="hidden" asp-for="@item.IdHsthamDinh" />
-                                                        <input type="submit" value="Xóa" class="btn btn-danger" />
-                                                    </form>
+                                            </div>
+                                        </form>
+                                    </label>
+                                </div>
+                                <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                    <thead>
+                                        <tr>
+                                            @*<th scope="col">Mã Hồ Sơ Thẩm Định</th>*@
+                                            @*<th scope="col">Tên Công Ty</th>*@
+                                            <th scope="col">Hồ Sơ Đảm Bảo</th>
+                                            <th scope="col">Số Tiền Thẩm Định</th>
+                                            <th scope="col">Người Thẩm Định</th>
+                                            <th scope="col">CMND/CCCD</th>
+                                            <th scope="col">Ngày Nhận Hồ Sơ</th>
+                                            <th scope="col">Ngày Thẩm Định</th>
+                                            <th scope="col">Báo Cáo Thẩm Định</th>
+                                            <th scope="col"></th>
+                                        </tr>
+                                    </thead>
+                                    @if (Model != null)
+                                    {
+                                        @foreach (var item in Model)
+                                        {
+                                            <tbody>
+                                                <tr>
+                                                    @*<td>@item.IdHsthamDinh</td>*@
+                                                    @*<td>@item.IdCongTyNavigation.TenCty</td>*@
+                                                    <td>@item.IdHsdb</td>
+                                                    <td>@item.SoTienThamDinh</td>
+                                                    <td>@item.TenNguoiThamDinh</td>
+                                                    <td>@item.CmndCccd</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.NgayNhanHoSo)</td>
+                                                    <td>@Html.DisplayFor(modelItem => item.NgayThamDinh)</td>
+                                                    <td>@item.BaoCaoThamDinh</td>
+                                                    <td>
+                                                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.IdHsthamDinh"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.IdHsthamDinh"><i class="fa-solid fa-circle-info"></i></a>
+                                                        <a class="btn btn-outline-success" asp-action="Delete" asp-route-id="@item.IdHsthamDinh" data-toggle="modal" data-target="#deleteModal"><i class="fa-solid fa-trash"></i></a>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+
+                                            <!-- Modal -->
+                                            <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                                <div class="modal-dialog" role="document">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header">
+                                                            <h5 class="modal-title" id="deleteModalLabel">Thông Báo Xóa</h5>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                        <div class="modal-body">
+                                                            Bạn có chắc muốn xóa @item.IdHsthamDinh
+                                                        </div>
+                                                        <div class="modal-footer">
+                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                                                            <form asp-action="Delete" style="text-align: center;">
+                                                                <input type="hidden" asp-for="@item.IdHsthamDinh" />
+                                                                <input type="submit" value="Xóa" class="btn btn-danger" />
+                                                            </form>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-                                }
-                            }
-                        </table>
+                                        }
+                                    }
+                                </table>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>

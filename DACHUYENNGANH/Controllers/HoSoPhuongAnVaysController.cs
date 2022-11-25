@@ -25,6 +25,43 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, string id)
+        {
+            ViewData["Getchucvudetails"] = search;
+
+            //var hspavay = from x in _context.HoSoPhuongAnVays select x;
+
+            ViewBag.HoSoVay = _context.HoSoVayDoanhNghieps;
+            var ket = from s in _context.HoSoPhuongAnVays
+                      join i in _context.HoSoVayDoanhNghieps
+                      on s.IdHsvay equals i.IdHsvay
+                      select new { s.IdHsvay, s.IdHspavay, s.NgayNhanHs, s.KeHoachTraNo, s.PhuongAnKd };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ket = ket.Where(x => x.PhuongAnKd.Contains(search));
+
+            }
+            if (id != null)
+            {
+                ket = ket.Where(x => x.IdHsvay == id).OrderByDescending(x => x.NgayNhanHs);
+            }
+            List<HoSoPhuongAnVay> pavay = new List<HoSoPhuongAnVay>();
+            foreach (var k in ket)
+            {
+                HoSoPhuongAnVay hspa = new HoSoPhuongAnVay();
+                hspa.IdHsvay = k.IdHsvay;
+                hspa.IdHspavay = k.IdHspavay;
+                hspa.NgayNhanHs = k.NgayNhanHs;
+                hspa.KeHoachTraNo = k.KeHoachTraNo;
+                hspa.PhuongAnKd = k.PhuongAnKd;
+                pavay.Add(hspa);
+
+            }
+            return View(pavay);
+        }
+
         // GET: HoSoPhuongAnVays/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -58,7 +95,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdHspavay,PhuongAnKd,KeHoachTraNo,NgayNhanHs,IdHsvay")] HoSoPhuongAnVay hoSoPhuongAnVay)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(hoSoPhuongAnVay);
                 await _context.SaveChangesAsync();
@@ -97,7 +134,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

@@ -89,7 +89,7 @@ namespace DACHUYENNGANH.Models
                 entity.ToTable("DoanhNghiep");
 
                 entity.Property(e => e.IdDoanhNghiep)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false);
 
                 entity.Property(e => e.CmndCccd)
@@ -129,35 +129,35 @@ namespace DACHUYENNGANH.Models
                 entity.Property(e => e.IdBctc).HasColumnName("IdBCTC");
 
                 entity.Property(e => e.BctaiChinh)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("BCTaiChinh");
 
                 entity.Property(e => e.HopDongMuaBan)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.HopDongSdld)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("HopDongSDLD");
 
                 entity.Property(e => e.IdHsvay)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false)
                     .HasColumnName("IdHSVay");
 
                 entity.Property(e => e.NgayNhanHs)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("NgayNhanHS");
 
                 entity.Property(e => e.SaoKeTknh)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("SaoKeTKNH");
 
                 entity.Property(e => e.ToVat)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("ToVAT");
 
@@ -176,7 +176,7 @@ namespace DACHUYENNGANH.Models
                 entity.ToTable("HoSoPhapLy");
 
                 entity.Property(e => e.BbhopHd)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("BBHopHD");
 
@@ -186,22 +186,22 @@ namespace DACHUYENNGANH.Models
                     .HasColumnName("CMND_CCCD_KTT");
 
                 entity.Property(e => e.DieuLeCty)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("DieuLeCTy");
 
                 entity.Property(e => e.Gcndkthue)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("GCNDKThue");
 
                 entity.Property(e => e.Gdkkd)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("GDKKD");
 
                 entity.Property(e => e.IdHsvay)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false)
                     .HasColumnName("IdHSVay");
 
@@ -230,20 +230,20 @@ namespace DACHUYENNGANH.Models
                 entity.Property(e => e.IdHspavay).HasColumnName("IdHSPAVay");
 
                 entity.Property(e => e.IdHsvay)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false)
                     .HasColumnName("IdHSVay");
 
                 entity.Property(e => e.KeHoachTraNo)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.NgayNhanHs)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("NgayNhanHS");
 
                 entity.Property(e => e.PhuongAnKd)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("PhuongAnKD");
 
@@ -264,40 +264,40 @@ namespace DACHUYENNGANH.Models
                 entity.Property(e => e.IdHsdb).HasColumnName("IdHSDB");
 
                 entity.Property(e => e.ChungNhanBaoHiem)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.DcnsoHuuDat)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("DCNSoHuuDat");
 
                 entity.Property(e => e.HdtaiSan)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("HDTaiSan");
 
                 entity.Property(e => e.IdHsvay)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false)
                     .HasColumnName("IdHSVay");
 
                 entity.Property(e => e.IdLoaiHs).HasColumnName("IdLoaiHS");
 
                 entity.Property(e => e.NgayNhanHs)
-                    .HasColumnType("date")
+                    .HasColumnType("datetime")
                     .HasColumnName("NgayNhanHS");
 
                 entity.Property(e => e.SoDangKiem)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.SoNhaDat)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TbnopPhiNd)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false)
                     .HasColumnName("TBNopPhiND");
 
@@ -324,13 +324,10 @@ namespace DACHUYENNGANH.Models
                 entity.Property(e => e.IdHsthamDinh).HasColumnName("IdHSThamDinh");
 
                 entity.Property(e => e.BaoCaoThamDinh)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
-                entity.Property(e => e.CmndCccd)
-                    .HasMaxLength(50)
-                    .IsUnicode(false)
-                    .HasColumnName("CMND_CCCD");
+                entity.Property(e => e.CmndCccd).HasColumnName("CMND_CCCD");
 
                 entity.Property(e => e.IdCongTy)
                     .HasMaxLength(10)
@@ -338,9 +335,9 @@ namespace DACHUYENNGANH.Models
 
                 entity.Property(e => e.IdHsdb).HasColumnName("IdHSDB");
 
-                entity.Property(e => e.NgayNhanHoSo).HasColumnType("date");
+                entity.Property(e => e.NgayNhanHoSo).HasColumnType("datetime");
 
-                entity.Property(e => e.NgayThamDinh).HasColumnType("date");
+                entity.Property(e => e.NgayThamDinh).HasColumnType("datetime");
 
                 entity.Property(e => e.TenNguoiThamDinh).HasMaxLength(50);
 
@@ -369,7 +366,7 @@ namespace DACHUYENNGANH.Models
                     .HasColumnName("IdHSTinDung");
 
                 entity.Property(e => e.ChuKy)
-                    .HasMaxLength(50)
+                    .HasMaxLength(255)
                     .IsUnicode(false);
 
                 entity.Property(e => e.IdKhachHangCaNhan)
@@ -405,12 +402,12 @@ namespace DACHUYENNGANH.Models
                 entity.ToTable("HoSoVayDoanhNghiep");
 
                 entity.Property(e => e.IdHsvay)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false)
                     .HasColumnName("IdHSVay");
 
                 entity.Property(e => e.IdDoanhNghiep)
-                    .HasMaxLength(10)
+                    .HasMaxLength(16)
                     .IsUnicode(false);
 
                 entity.Property(e => e.IdNhanVien)
@@ -493,7 +490,7 @@ namespace DACHUYENNGANH.Models
             modelBuilder.Entity<LoaiHoSoTsdb>(entity =>
             {
                 entity.HasKey(e => e.IdLoaiHs)
-                    .HasName("PK__LoaiHoSo__B41B73F044B203D4");
+                    .HasName("PK__LoaiHoSo__B41B73F030000BF5");
 
                 entity.ToTable("LoaiHoSoTSDB");
 
@@ -562,18 +559,26 @@ namespace DACHUYENNGANH.Models
                 entity.ToTable("TheTinDung");
 
                 entity.Property(e => e.Stk)
-                    .HasMaxLength(50)
+                    .HasMaxLength(14)
                     .IsUnicode(false)
                     .HasColumnName("STK");
 
                 entity.Property(e => e.IdHstinDung).HasColumnName("IdHSTinDung");
 
+                entity.Property(e => e.MaPin)
+                    .HasMaxLength(6)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.NgayMoThe).HasColumnType("date");
 
                 entity.Property(e => e.NgayNhanThe).HasColumnType("date");
 
+                entity.Property(e => e.SoSauThe)
+                    .HasMaxLength(3)
+                    .IsUnicode(false);
+
                 entity.Property(e => e.SoTrenThe)
-                    .HasMaxLength(50)
+                    .HasMaxLength(16)
                     .IsUnicode(false);
 
                 entity.Property(e => e.TenTk)

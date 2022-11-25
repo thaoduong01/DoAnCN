@@ -25,6 +25,48 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, string id)
+        {
+            ViewData["Getchucvudetails"] = search;
+            ViewBag.CongTy = _context.CongTyThamDinhs;
+
+            /*var hsvay = from x in _context.HoSoThamDinhs select x*/
+            ;
+
+            var ketDN = from s in _context.HoSoThamDinhs
+                        join i in _context.CongTyThamDinhs
+                        on s.IdCongTy equals i.IdCongTy
+                        select new { s.IdCongTy, s.NgayThamDinh, s.IdHsthamDinh, s.BaoCaoThamDinh, s.SoTienThamDinh, s.TenNguoiThamDinh, s.CmndCccd, s.NgayNhanHoSo, s.IdHsdb };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ketDN = ketDN.Where(x => x.TenNguoiThamDinh.Contains(search)).OrderByDescending(x => x.NgayNhanHoSo);
+
+            }
+            if (id != null)
+            {
+                ketDN = ketDN.Where(x => x.IdCongTy == id);
+            }
+            List<HoSoThamDinh> hoSoThamDinhs = new List<HoSoThamDinh>();
+            foreach (var k in ketDN)
+            {
+                HoSoThamDinh hstd = new HoSoThamDinh();
+                hstd.BaoCaoThamDinh = k.BaoCaoThamDinh;
+                hstd.IdCongTy = k.IdCongTy;
+                hstd.IdHsthamDinh = k.IdHsthamDinh;
+                hstd.IdHsdb = k.IdHsdb;
+                hstd.SoTienThamDinh = k.SoTienThamDinh;
+                hstd.TenNguoiThamDinh = k.TenNguoiThamDinh;
+                hstd.CmndCccd = k.CmndCccd;
+                hstd.NgayNhanHoSo = k.NgayNhanHoSo;
+                hstd.NgayThamDinh = k.NgayThamDinh;
+
+                hoSoThamDinhs.Add(hstd);
+            }
+            return View(hoSoThamDinhs);
+        }
+
         // GET: HoSoThamDinhs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -60,7 +102,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdHsthamDinh,SoTienThamDinh,NgayThamDinh,NgayNhanHoSo,BaoCaoThamDinh,TenNguoiThamDinh,CmndCccd,IdCongTy,IdHsdb")] HoSoThamDinh hoSoThamDinh)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(hoSoThamDinh);
                 await _context.SaveChangesAsync();
@@ -101,7 +143,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

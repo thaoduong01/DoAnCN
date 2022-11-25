@@ -25,6 +25,43 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, int id)
+        {
+            ViewData["Getchucvudetails"] = search;
+            ViewBag.HoSoTD = _context.HoSoTinDungs;
+            
+
+            var ketDN = from s in _context.TheTinDungs
+                        join i in _context.HoSoTinDungs
+                        on s.IdHstinDung equals i.IdHstinDung
+                        select new { s.IdHstinDung, s.NgayNhanThe, s.NgayMoThe, s.SoTrenThe, s.TenTk, s.Stk };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ketDN = ketDN.Where(x => x.Stk.Contains(search) || x.TenTk.Contains(search) || x.SoTrenThe.Contains(search));
+
+            }
+            if (id != 0)
+            {
+                ketDN = ketDN.Where(x => x.IdHstinDung == id);
+            }
+            List<TheTinDung> theTinDungs = new List<TheTinDung>();
+            foreach (var k in ketDN)
+            {
+                TheTinDung ttd = new TheTinDung();
+                ttd.IdHstinDung = k.IdHstinDung;
+                ttd.Stk = k.Stk;
+                ttd.TenTk = k.TenTk;
+                ttd.SoTrenThe = k.SoTrenThe;
+                ttd.NgayNhanThe = k.NgayNhanThe;
+                ttd.NgayMoThe = k.NgayMoThe;
+
+                theTinDungs.Add(ttd);
+            }
+            return View(theTinDungs);
+        }
+
         // GET: TheTinDungs/Details/5
         public async Task<IActionResult> Details(string id)
         {
@@ -58,7 +95,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Stk,TenTk,SoTrenThe,NgayMoThe,NgayNhanThe,IdHstinDung")] TheTinDung theTinDung)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(theTinDung);
                 await _context.SaveChangesAsync();
@@ -97,7 +134,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

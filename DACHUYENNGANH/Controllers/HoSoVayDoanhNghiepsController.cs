@@ -19,6 +19,68 @@ namespace DACHUYENNGANH.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, string iddn, string idnv)
+        {
+            ViewData["Getchucvudetails"] = search;
+            ViewBag.DoanhNghiep = _context.DoanhNghieps;
+            ViewBag.NhanVien = _context.NhanViens;
+            /*var hsvay = from x in _context.HoSoVayDoanhNghieps select x*/
+            ;
+
+            var ketDN = from s in _context.HoSoVayDoanhNghieps
+                        join i in _context.DoanhNghieps
+                        on s.IdDoanhNghiep equals i.IdDoanhNghiep
+                        select new { s.IdDoanhNghiep, s.IdHsvay, s.IdNhanVien, s.LaiSuat, s.NgayBdvay, s.NgayKt, s.SoTienVay };
+
+            var ketNV = from s in _context.HoSoVayDoanhNghieps
+                        join i in _context.NhanViens
+                        on s.IdNhanVien equals i.IdNhanVien
+                        select new { s.IdDoanhNghiep, s.IdHsvay, s.IdNhanVien, s.LaiSuat, s.NgayBdvay, s.NgayKt, s.SoTienVay };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ketDN = ketDN.Where(x => x.IdHsvay.Contains(search)).OrderByDescending(x => x.NgayBdvay);
+
+            }
+            if (iddn != null)
+            {
+                ketDN = ketDN.Where(x => x.IdDoanhNghiep == iddn);
+            }
+            if (idnv != null)
+            {
+                ketNV = ketNV.Where(x => x.IdNhanVien == idnv).OrderByDescending(x => x.NgayBdvay);
+            }
+            List<HoSoVayDoanhNghiep> hoSoVayDoanhNghieps = new List<HoSoVayDoanhNghiep>();
+            foreach (var k in ketDN)
+            {
+                HoSoVayDoanhNghiep hsvay = new HoSoVayDoanhNghiep();
+                hsvay.IdHsvay = k.IdHsvay;
+                hsvay.IdDoanhNghiep = k.IdDoanhNghiep;
+                hsvay.IdNhanVien = k.IdNhanVien;
+                hsvay.SoTienVay = k.SoTienVay;
+                hsvay.LaiSuat = k.LaiSuat;
+                hsvay.NgayBdvay = k.NgayBdvay;
+                hsvay.NgayKt = k.NgayKt;
+
+                hoSoVayDoanhNghieps.Add(hsvay);
+            }
+            //foreach (var k in ketNV)
+            //{
+            //    HoSoVayDoanhNghiep nv = new HoSoVayDoanhNghiep();
+            //    nv.IdHsvay = k.IdHsvay;
+            //    nv.IdDoanhNghiep = k.IdDoanhNghiep;
+            //    nv.IdNhanVien = k.IdNhanVien;
+            //    nv.SoTienVay = k.SoTienVay;
+            //    nv.LaiSuat = k.LaiSuat;
+            //    nv.NgayBdvay = k.NgayBdvay;
+            //    nv.NgayKt = k.NgayKt;
+
+            //    hoSoVayDoanhNghieps.Add(nv);
+            //}
+            return View(hoSoVayDoanhNghieps);
+        }
+
         // GET: HoSoVayDoanhNghieps
         public async Task<IActionResult> Index()
         {
@@ -51,7 +113,7 @@ namespace DACHUYENNGANH.Controllers
         {
 
             ViewData["IdDoanhNghiep"] = new SelectList(_context.DoanhNghieps, "IdDoanhNghiep", "IdDoanhNghiep");
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien");
             return View();
         }
 
@@ -62,7 +124,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdHsvay,NgayBdvay,SoTienVay,NgayKt,LaiSuat,IdNhanVien,IdDoanhNghiep")] HoSoVayDoanhNghiep hoSoVayDoanhNghiep)
         {
-            if (ModelState.IsValid)
+            if (hoSoVayDoanhNghiep.IdNhanVien != null && hoSoVayDoanhNghiep.IdDoanhNghiep != null)
             {
                 hoSoVayDoanhNghiep.IdHsvay = GetIDHD.GetIDHopDong();
                 _context.Add(hoSoVayDoanhNghiep);
@@ -70,7 +132,7 @@ namespace DACHUYENNGANH.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdDoanhNghiep"] = new SelectList(_context.DoanhNghieps, "IdDoanhNghiep", "IdDoanhNghiep", hoSoVayDoanhNghiep.IdDoanhNghiep);
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", hoSoVayDoanhNghiep.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien", hoSoVayDoanhNghiep.IdNhanVien);
             return View(hoSoVayDoanhNghiep);
         }
 
@@ -88,7 +150,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
             ViewData["IdDoanhNghiep"] = new SelectList(_context.DoanhNghieps, "IdDoanhNghiep", "IdDoanhNghiep", hoSoVayDoanhNghiep.IdDoanhNghiep);
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", hoSoVayDoanhNghiep.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien", hoSoVayDoanhNghiep.IdNhanVien);
             return View(hoSoVayDoanhNghiep);
         }
 
@@ -104,7 +166,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {
@@ -125,7 +187,7 @@ namespace DACHUYENNGANH.Controllers
                 return RedirectToAction(nameof(Index));
             }
             ViewData["IdDoanhNghiep"] = new SelectList(_context.DoanhNghieps, "IdDoanhNghiep", "IdDoanhNghiep", hoSoVayDoanhNghiep.IdDoanhNghiep);
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", hoSoVayDoanhNghiep.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien", hoSoVayDoanhNghiep.IdNhanVien);
             return View(hoSoVayDoanhNghiep);
         }
 

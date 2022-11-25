@@ -11,19 +11,19 @@ function final() {
     var ngayGiaiNgan = new Date(giaingan.value);
     var laiSuat = lai.value;
 
-   
+
     result(tienGoc, laiSuat, thoiGianVay, ngayGiaiNgan)
 }
 
 //Tính tiền gốc hàng tháng
 function calculateTienGoc(tienGoc, time) {
-    let tienGocHangThang = tienGoc/time;
+    let tienGocHangThang = tienGoc / time;
     return tienGocHangThang;
 }
 
 // Tính tiền lãi hàng tháng
 function calculateTienLai(gocConLai, lai) {
-    let tienLaiHangThang = gocConLai*(lai/100)/12;
+    let tienLaiHangThang = gocConLai * (lai / 100) / 12;
     return tienLaiHangThang;
 }
 
@@ -34,15 +34,15 @@ function result(tienGoc, laiSuat, time, ngayGiaiNgan) {
     var tongTienPhaiTra = 0;
     var tongTienLai = 0;
     taoBang(ngayGiaiNgan, 0, tienGocConLai)
-    for(let i = 1; i <= time; i++){
+    for (let i = 1; i <= time; i++) {
         var laiHangThang = calculateTienLai(tienGocConLai, laiSuat)
         var tienPhaiTraHangThang = laiHangThang + gocHangThang;
         tienGocConLai = tienGocConLai - gocHangThang;
 
-        
+
         ngayGiaiNgan.setMonth(ngayGiaiNgan.getMonth() + 1)
         updateDate(ngayGiaiNgan)
-        taoBang(ngayGiaiNgan, i, tienGocConLai, gocHangThang, laiHangThang, tienPhaiTraHangThang )
+        taoBang(ngayGiaiNgan, i, tienGocConLai, gocHangThang, laiHangThang, tienPhaiTraHangThang)
         tongTienPhaiTra += gocHangThang
         tongTienLai += laiHangThang
 
@@ -54,20 +54,20 @@ function result(tienGoc, laiSuat, time, ngayGiaiNgan) {
 // hiển thị kết quả
 function taoBang(ngayGiaiNgan, index, gocConLai, gocHangThang, laiHangThang, tienPhaiTraHangThang) {
     var hang = body.insertRow(-1);
-    var cot1 = hang.insertCell(0);
-    var cot2 = hang.insertCell(1);
+    var cot2 = hang.insertCell(0);
+    var cot1 = hang.insertCell(1);
     var cot3 = hang.insertCell(2);
     var cot4 = hang.insertCell(3);
     var cot5 = hang.insertCell(4);
     var cot6 = hang.insertCell(5);
 
-    if(index == 0) {
+    if (index == 0) {
         cot1.innerText = updateDate(ngayGiaiNgan);
         cot2.innerText = index;
         cot3.innerText = updateNumber(gocConLai);
-        cot4.innerText = '';
-        cot5.innerText = '';
-        cot6.innerText = '';
+        cot4.innerText = '0';
+        cot5.innerText = '0';
+        cot6.innerText = '0';
     } else {
         cot1.innerText = ngayGiaiNgan;
         cot2.innerText = index;
@@ -98,12 +98,11 @@ function taoHangTongKq(tongGoc, tongLai, tongTienPhaiTra) {
 
 // Update lại ngày
 function updateDate(date) {
-    
-    return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
+    return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 }
 
 // Update lại số
 function updateNumber(number) {
-   return Math.round(number).toLocaleString();
+    return Math.round(number).toLocaleString();
 }
 

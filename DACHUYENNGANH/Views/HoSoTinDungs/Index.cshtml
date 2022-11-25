@@ -10,12 +10,12 @@
         <div class="container-fluid px-4">
             <h1 class="mt-4">Danh Sách Hồ Sơ Tín Dụng</h1>
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTinDungs" asp-action="Index">Hồ Sơ Tín Dụng</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoTinDungs" asp-action="Index">Hồ Sơ Tín Dụng</a></li>
                 <li class="breadcrumb-item active">Danh Sách Hồ Sơ Tín Dụng</li>
             </ol>
             <p class="btn btn-outline-secondary">
-                <a asp-action="Create">Create New</a>
+                <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
             </p>
             <div class="card mb-4">
 
@@ -45,7 +45,7 @@
                                         <form method="get" asp-action="Index">
                                             <div class="input-group-append">
                                                 <select asp-items="@(new SelectList(ViewBag.KhachHang, "IdKhachHangCaNhan", "TenKh"))" name="iddn" class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option>Khách Hàng </option>
+                                                    <option>Khách Hàng</option>
                                                 </select>
                                                 <select asp-items="@(new SelectList(ViewBag.NhanVien, "IdNhanVien", "TenNhanVien"))" name="idnv" class="custom-select custom-select-sm form-control form-control-sm">
                                                     <option>Nhân Viên</option>
@@ -83,15 +83,15 @@
                                             <tbody>
                                                 <tr>
                                                     @*<td>@item.IdHstinDung</td>
-                                                    <td>@item.IdKhachHangCaNhanNavigation.TenKh</td>
+                                            <td>@item.IdKhachHangCaNhanNavigation.TenKh</td>
                                             <td>@item.IdNhanVienNavigation.TenNhanVien</td>*@
                                                     <td>@item.ChuKy</td>
                                                     <td>@item.PhiMoThe</td>
                                                     <td>@item.NgayNhanHs</td>
                                                     <td>
-                                                        <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdHstinDung">Edit</a>
-                                                        <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdHstinDung">Details</a>
-                                                        <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdHstinDung">Delete</a>
+                                                        <a class="btn btn-outline-primary" asp-action="Edit" asp-route-id="@item.IdHstinDung"><i class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a class="btn btn-outline-secondary" asp-action="Details" asp-route-id="@item.IdHstinDung"><i class="fa-solid fa-circle-info"></i></a>
+                                                        <a class="btn btn-outline-success" asp-action="Delete" asp-route-id="@item.IdHstinDung"><i class="fa-solid fa-trash"></i></a>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -108,6 +108,5 @@
     </main>
 
 </div>
-
 
 

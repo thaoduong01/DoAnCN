@@ -25,6 +25,46 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+
+        [HttpGet]
+        public IActionResult Index(string search, int id)
+        {
+            ViewData["Getchucvudetails"] = search;
+
+            //var baocao = from x in _context.HoSoBaoCaoTcs select x;
+
+            ViewBag.HoSoVay = _context.HoSoVayDoanhNghieps;
+            var ket = from s in _context.HoSoBaoCaoTcs
+                      join i in _context.HoSoVayDoanhNghieps
+                      on s.IdHsvay equals i.IdHsvay
+                      select new { s.ToVat, s.IdHsvay, s.NgayNhanHs, s.BctaiChinh, s.HopDongMuaBan, s.HopDongSdld, s.IdBctc, s.SaoKeTknh };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ket = ket.Where(x => x.IdHsvay.Contains(search)).OrderByDescending(x => x.NgayNhanHs);
+
+            }
+            if (id != 0)
+            {
+                ket = ket.Where(x => x.IdBctc == id);
+            }
+            List<HoSoBaoCaoTc> listHsbaocao = new List<HoSoBaoCaoTc>();
+            foreach (var k in ket)
+            {
+                HoSoBaoCaoTc hsbc = new HoSoBaoCaoTc();
+                hsbc.IdBctc = k.IdBctc;
+                hsbc.IdHsvay = k.IdHsvay;
+                hsbc.ToVat = k.ToVat;
+                hsbc.SaoKeTknh = k.SaoKeTknh;
+                hsbc.BctaiChinh = k.BctaiChinh;
+                hsbc.HopDongMuaBan = k.HopDongMuaBan;
+                hsbc.HopDongSdld = k.HopDongSdld;
+                hsbc.NgayNhanHs = k.NgayNhanHs;
+                listHsbaocao.Add(hsbc);
+            }
+            return View(listHsbaocao);
+        }
+
         // GET: HoSoBaoCaoTcs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -58,7 +98,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdBctc,ToVat,HopDongSdld,HopDongMuaBan,SaoKeTknh,NgayNhanHs,BctaiChinh,IdHsvay")] HoSoBaoCaoTc hoSoBaoCaoTc)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 _context.Add(hoSoBaoCaoTc);
                 await _context.SaveChangesAsync();
@@ -97,7 +137,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

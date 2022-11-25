@@ -25,6 +25,45 @@ namespace DACHUYENNGANH.Controllers
             return View(await dAChuyenNganhContext.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string search, int id)
+        {
+            ViewData["Getchucvudetails"] = search;
+            ViewBag.KhachHang = _context.KhachHangs;
+            ;
+
+            var ketDN = from s in _context.KhachHangCaNhans
+                        join i in _context.KhachHangs
+                        on s.IdKhachHang equals i.IdKhachHang
+                        select new { s.IdKhachHangCaNhan, s.IdKhachHang, s.TenKh, s.NgaySinh, s.GioiTinh, s.DiaChi, s.CmndCccd, s.Sdt };
+
+            if (!string.IsNullOrEmpty(search))
+            {
+                ketDN = ketDN.Where(x => x.IdKhachHangCaNhan.Contains(search) || x.TenKh.Contains(search));
+
+            }
+            if (id != 0)
+            {
+                ketDN = ketDN.Where(x => x.IdKhachHang == id);
+            }
+            List<KhachHangCaNhan> khachHangCaNhans = new List<KhachHangCaNhan>();
+            foreach (var k in ketDN)
+            {
+                KhachHangCaNhan khcn = new KhachHangCaNhan();
+                khcn.IdKhachHangCaNhan = k.IdKhachHangCaNhan;
+                khcn.IdKhachHang = k.IdKhachHang;
+                khcn.TenKh = k.TenKh;
+                khcn.NgaySinh = k.NgaySinh;
+                khcn.CmndCccd = k.CmndCccd;
+                khcn.GioiTinh = k.GioiTinh;
+                khcn.DiaChi = k.DiaChi;
+                khcn.Sdt = k.Sdt;
+
+                khachHangCaNhans.Add(khcn);
+            }
+            return View(khachHangCaNhans);
+        }
+
         // GET: KhachHangCaNhans/Details/5
         public async Task<IActionResult> Details(string id)
         {
