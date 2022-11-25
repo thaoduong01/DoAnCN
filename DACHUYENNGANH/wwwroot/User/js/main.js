@@ -98,7 +98,6 @@ function taoHangTongKq(tongGoc, tongLai, tongTienPhaiTra) {
 
 // Update lại ngày
 function updateDate(date) {
-    var date = new Date()
     return date.getDate()+'-'+(date.getMonth()+1)+'-'+date.getFullYear();
 }
 
