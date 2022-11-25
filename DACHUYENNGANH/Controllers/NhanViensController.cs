@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.TienIch;
 
 namespace DACHUYENNGANH.Controllers
 {
@@ -103,14 +104,15 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdNhanVien,TenNhanVien,NgaySinh,CmndCccd,Sdt,GioiTinh,Email,TenDangNhap,MatKhau,IdChucVu")] NhanVien nhanVien)
         {
-            if (nhanVien.IdChucVu != null && nhanVien.IdNhanVien != null)
+            if (nhanVien.IdChucVu != null)
             {
+                nhanVien.IdNhanVien = GetID.GetIDByFullNameAnDob(nhanVien.TenNhanVien, nhanVien.NgaySinh);
                 nhanVien.MatKhau = CreateMD5(nhanVien.MatKhau);
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdChucVu"] = new SelectList(_context.ChucVus, "IdChucVu", "IdChucVu", nhanVien.IdChucVu);
+            ViewData["IdChucVu"] = new SelectList(_context.ChucVus, "IdChucVu", "TenChucVu", nhanVien.IdChucVu);
             return View(nhanVien);
         }
 

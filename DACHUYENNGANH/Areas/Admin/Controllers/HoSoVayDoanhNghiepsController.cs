@@ -36,31 +36,24 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             /*var hsvay = from x in _context.HoSoVayDoanhNghieps select x*/
             ;
 
-            var ketDN = from s in _context.HoSoVayDoanhNghieps
+            var ket = from s in _context.HoSoVayDoanhNghieps
+                      join l in _context.NhanViens
+                      on s.IdNhanVien equals l.IdNhanVien
                       join i in _context.DoanhNghieps
                       on s.IdDoanhNghiep equals i.IdDoanhNghiep
                       select new { s.IdDoanhNghiep, s.IdHsvay, s.IdNhanVien, s.LaiSuat, s.NgayBdvay, s.NgayKt, s.SoTienVay };
 
-            var ketNV = from s in _context.HoSoVayDoanhNghieps
-                        join i in _context.NhanViens
-                        on s.IdNhanVien equals i.IdNhanVien
-                        select new { s.IdDoanhNghiep, s.IdHsvay, s.IdNhanVien, s.LaiSuat, s.NgayBdvay, s.NgayKt, s.SoTienVay };
-
             if (!string.IsNullOrEmpty(search))
             {
-                ketDN = ketDN.Where(x => x.IdHsvay.Contains(search)).OrderByDescending(x => x.NgayBdvay);
+                ket = ket.Where(x => x.IdHsvay.Contains(search) || x.IdDoanhNghiep.Contains(search) || x.IdNhanVien.Contains(search)).OrderByDescending(x => x.NgayBdvay);
 
             }
-            if (iddn != null)
+            if (iddn != null && idnv != null)
             {
-                ketDN = ketDN.Where(x => x.IdDoanhNghiep == iddn);
-            }
-            if (idnv != null)
-            {
-                ketNV = ketNV.Where(x => x.IdNhanVien == idnv).OrderByDescending(x => x.NgayBdvay);
+                ket = ket.Where(x => x.IdNhanVien == idnv || x.IdDoanhNghiep == iddn).OrderByDescending(x => x.NgayBdvay);
             }
             List<HoSoVayDoanhNghiep> hoSoVayDoanhNghieps = new List<HoSoVayDoanhNghiep>();
-            foreach (var k in ketDN )
+            foreach (var k in ket)
             {
                 HoSoVayDoanhNghiep hsvay = new HoSoVayDoanhNghiep();
                 hsvay.IdHsvay = k.IdHsvay;
@@ -72,19 +65,6 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                 hsvay.NgayKt = k.NgayKt;
 
                 hoSoVayDoanhNghieps.Add(hsvay);
-            }
-            foreach (var k in ketNV)
-            {
-                HoSoVayDoanhNghiep nv = new HoSoVayDoanhNghiep();
-                nv.IdHsvay = k.IdHsvay;
-                nv.IdDoanhNghiep = k.IdDoanhNghiep;
-                nv.IdNhanVien = k.IdNhanVien;
-                nv.SoTienVay = k.SoTienVay;
-                nv.LaiSuat = k.LaiSuat;
-                nv.NgayBdvay = k.NgayBdvay;
-                nv.NgayKt = k.NgayKt;
-
-                hoSoVayDoanhNghieps.Add(nv);
             }
             return View(hoSoVayDoanhNghieps);
         }

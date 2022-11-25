@@ -38,25 +38,19 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             var ketDN = from s in _context.HoSoTinDungs
                         join i in _context.KhachHangCaNhans
                         on s.IdKhachHangCaNhan equals i.IdKhachHangCaNhan
+                        join l in _context.NhanViens
+                        on s.IdNhanVien equals l.IdNhanVien
                         select new { s.IdKhachHangCaNhan, s.NgayNhanHs, s.IdHstinDung, s.ChuKy, s.PhiMoThe, s.IdNhanVien };
 
-            var ketNV = from s in _context.HoSoTinDungs
-                        join i in _context.NhanViens
-                        on s.IdNhanVien equals i.IdNhanVien
-                        select new { s.IdKhachHangCaNhan, s.NgayNhanHs, s.IdHstinDung, s.ChuKy, s.PhiMoThe, s.IdNhanVien };
 
             if (!string.IsNullOrEmpty(search))
             {
                 ketDN = ketDN.Where(x => x.ChuKy.Contains(search)).OrderByDescending(x => x.NgayNhanHs);
 
             }
-            if (iddn != null)
+            if (iddn != null && idnv != null)
             {
-                ketDN = ketDN.Where(x => x.IdKhachHangCaNhan == iddn);
-            }
-            if (idnv != null)
-            {
-                ketNV = ketNV.Where(x => x.IdNhanVien == idnv).OrderByDescending(x => x.NgayNhanHs);
+                ketDN = ketDN.Where(x => x.IdKhachHangCaNhan == iddn || x.IdNhanVien == idnv).OrderByDescending(x => x.NgayNhanHs);
             }
             List<HoSoTinDung> hoSoTinDungs = new List<HoSoTinDung>();
             foreach (var k in ketDN)
@@ -70,18 +64,6 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                 hstd.PhiMoThe = k.PhiMoThe;
 
                 hoSoTinDungs.Add(hstd);
-            }
-            foreach (var k in ketNV)
-            {
-                HoSoTinDung nv = new HoSoTinDung();
-                nv.IdHstinDung = k.IdHstinDung;
-                nv.IdKhachHangCaNhan = k.IdKhachHangCaNhan;
-                nv.IdNhanVien = k.IdNhanVien;
-                nv.NgayNhanHs = k.NgayNhanHs;
-                nv.ChuKy = k.ChuKy;
-                nv.PhiMoThe = k.PhiMoThe;
-
-                hoSoTinDungs.Add(nv);
             }
             return View(hoSoTinDungs);
         }

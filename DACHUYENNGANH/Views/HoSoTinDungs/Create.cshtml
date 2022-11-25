@@ -9,8 +9,8 @@
     <main>
         <div class="container-fluid px-4" style="text-align: center;">
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTinDungs" asp-action="Index">Hồ Sơ Tín Dụng</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoTinDungs" asp-action="Index">Hồ Sơ Tín Dụng</a></li>
                 <li class="breadcrumb-item active">Thêm Hồ Sơ Tín Dụng</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thêm Hồ Sơ Tín Dụng</h1>
@@ -40,7 +40,7 @@
             </div>
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Ngày Nhận Hồ Sơ</label>
-                <input type="datetime" class="form-control" asp-for="NgayNhanHs">
+                <input type="date" class="form-control" asp-for="NgayNhanHs">
             </div>
             <div class="form-group row">
                 <div class="col-sm-10" style="line-height: 5; text-align: center;">

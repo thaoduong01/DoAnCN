@@ -10,8 +10,8 @@
         <div class="container-fluid px-4" style="text-align: center;">
             <h1 class="mt-4">  Thông Tin Khách Hàng Cá Nhân</h1>
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="KhachHangCaNhans" asp-action="Index">Khách Hàng Cá Nhân</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="KhachHangCaNhans" asp-action="Index">Khách Hàng Cá Nhân</a></li>
                 <li class="breadcrumb-item active">  Thông Tin Khách Hàng Cá Nhân</li>
             </ol>
             <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
@@ -57,7 +57,7 @@
                 </div>
             </div>
             <div>
-                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+                <a asp-action="Index">Trở Về</a>
             </div>
         </div>
     </main>

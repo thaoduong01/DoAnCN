@@ -29,8 +29,8 @@ namespace DACHUYENNGANH.Controllers
         public IActionResult Index(string search, int id)
         {
             ViewData["Getchucvudetails"] = search;
+
             ViewBag.KhachHang = _context.KhachHangs;
-            ;
 
             var ketDN = from s in _context.KhachHangCaNhans
                         join i in _context.KhachHangs

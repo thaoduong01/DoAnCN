@@ -9,11 +9,11 @@
     <main>
         <div class="container-fluid px-4" style="text-align: center;">
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoPhapLies" asp-action="Index">Hồ Sơ Pháp Lý</a></li>
-                <li class="breadcrumb-item active">Thông Tin Hồ Sơ Pháp Lý</li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoPhuongAnVays" asp-action="Index">Hồ Sơ Phương Án Vay</a></li>
+                <li class="breadcrumb-item active">Thông Tin Hồ Sơ Phương Án Vay</li>
             </ol>
-            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Pháp Lý</h1>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Phương Án Vay</h1>
             <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
                 <div class="card-body">
                     <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
-                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+                <a asp-action="Index">Trở Về</a>
             </div>
         </div>
     </main>

@@ -9,8 +9,8 @@
     <main>
         <div class="container-fluid px-4" style="text-align: center;">
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoThamDinhs" asp-action="Index">Hồ Sơ Thẩm Định</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoThamDinhs" asp-action="Index">Hồ Sơ Thẩm Định</a></li>
                 <li class="breadcrumb-item active">Thông Tin Hồ Sơ Thẩm Định</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Thẩm Định</h1>
@@ -62,7 +62,7 @@
             </div>
             <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
                 <a asp-action="Edit" asp-route-id="@Model.IdHsthamDinh">Edit</a>
-                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+                <a  asp-action="Index">Trở Về</a>
             </div>
         </div>
     </main>
