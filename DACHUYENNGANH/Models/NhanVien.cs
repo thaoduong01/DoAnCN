@@ -7,7 +7,6 @@ namespace DACHUYENNGANH.Models
     {
         public NhanVien()
         {
-            BienLaiThuLais = new HashSet<BienLaiThuLai>();
             HoSoTinDungs = new HashSet<HoSoTinDung>();
             HoSoVayDoanhNghieps = new HashSet<HoSoVayDoanhNghiep>();
         }
@@ -24,7 +23,6 @@ namespace DACHUYENNGANH.Models
         public string IdChucVu { get; set; } = null!;
 
         public virtual ChucVu IdChucVuNavigation { get; set; } = null!;
-        public virtual ICollection<BienLaiThuLai> BienLaiThuLais { get; set; }
         public virtual ICollection<HoSoTinDung> HoSoTinDungs { get; set; }
         public virtual ICollection<HoSoVayDoanhNghiep> HoSoVayDoanhNghieps { get; set; }
     }

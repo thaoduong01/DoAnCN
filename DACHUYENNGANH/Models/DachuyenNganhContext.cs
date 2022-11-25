@@ -16,7 +16,6 @@ namespace DACHUYENNGANH.Models
         {
         }
 
-        public virtual DbSet<BienLaiThuLai> BienLaiThuLais { get; set; } = null!;
         public virtual DbSet<ChucVu> ChucVus { get; set; } = null!;
         public virtual DbSet<CongTyThamDinh> CongTyThamDinhs { get; set; } = null!;
         public virtual DbSet<DoanhNghiep> DoanhNghieps { get; set; } = null!;
@@ -32,7 +31,6 @@ namespace DACHUYENNGANH.Models
         public virtual DbSet<LoaiHoSoTsdb> LoaiHoSoTsdbs { get; set; } = null!;
         public virtual DbSet<NhanVien> NhanViens { get; set; } = null!;
         public virtual DbSet<TheTinDung> TheTinDungs { get; set; } = null!;
-        public virtual DbSet<test> Tests { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -44,37 +42,6 @@ namespace DACHUYENNGANH.Models
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<BienLaiThuLai>(entity =>
-            {
-                entity.HasKey(e => e.IdBienLai)
-                    .HasName("PK__BienLaiT__A6C6A9ABC30D2ACE");
-
-                entity.ToTable("BienLaiThuLai");
-
-                entity.Property(e => e.IdHsvay)
-                    .HasMaxLength(10)
-                    .IsUnicode(false)
-                    .HasColumnName("IdHSVay");
-
-                entity.Property(e => e.IdNhanVien)
-                    .HasMaxLength(10)
-                    .IsUnicode(false);
-
-                entity.Property(e => e.NgayNhanLai).HasColumnType("datetime");
-
-                entity.HasOne(d => d.IdHsvayNavigation)
-                    .WithMany(p => p.BienLaiThuLais)
-                    .HasForeignKey(d => d.IdHsvay)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BienLaiTh__IdHSV__4F7CD00D");
-
-                entity.HasOne(d => d.IdNhanVienNavigation)
-                    .WithMany(p => p.BienLaiThuLais)
-                    .HasForeignKey(d => d.IdNhanVien)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
-                    .HasConstraintName("FK__BienLaiTh__IdNha__440B1D61");
-            });
-
             modelBuilder.Entity<ChucVu>(entity =>
             {
                 entity.HasKey(e => e.IdChucVu)

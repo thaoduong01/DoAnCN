@@ -20,6 +20,11 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             _context = context;
         }
 
+        public IActionResult TinhLai()
+        {
+            return View();
+        }
+
         // GET: Admin/AdminNhanViens
         public async Task<IActionResult> Index()
         {

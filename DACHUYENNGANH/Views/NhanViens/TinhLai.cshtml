@@ -1,0 +1,165 @@
+﻿
+@{
+    ViewData["Title"] = "TinhLai";
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tính số tiền vay</title>
+    <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+    <div class="container">
+        <!-- Nhập liệu và tính toán -->
+        <form action="">
+            <!-- Số tiền vay -->
+            <div class="row">
+                <div class="left">
+                    <label for=""> Số tiền vay</label>
+                </div>
+                <div class="right">
+                    <input type="text" name="" id="money" placeholder="Số tiền vay..."> <span>VND</span>
+                </div>
+            </div>
+            <!-- Thời gian vay -->
+            <div class="row">
+                <div class="left">
+                    <label for=""> Thời gian vay</label>
+                </div>
+                <div class="right">
+                    <input type="text" name="" id="time" placeholder="Thời gian vay..."> <span>tháng</span>
+                </div>
+            </div>
+            <!-- Lãi suất -->
+            <div class="row">
+                <div class="left">
+                    <label for=""> Lãi suất</label>
+                </div>
+                <div class="right">
+                    <input type="text" name="" id="lai" placeholder="Lãi suất..."> <span>%năm</span>
+                </div>
+            </div>
+            <!-- Ngày giải ngân  -->
+            <div class="row">
+                <div class="left">
+                    <label for=""> Ngày giải ngân</label>
+                </div>
+                <div class="right">
+                    <input type="date" name="" id="giaingan" placeholder="mm/dd/yyyy">
+                </div>
+            </div>
+        </form>
+
+        <div class="row">
+            <input type="submit" value="Tính" id="" onclick="final()">
+        </div>
+        <!-- bảng kết quả  -->
+        <table>
+            <thead>
+                <tr>
+                    <th colspan="2">Kỳ trả nợ</th>
+                    <th>Số gốc còn lại</th>
+                    <th>Gốc</th>
+                    <th>Lãi</th>
+                    <th>Tổng gốc + Lãi</th>
+                </tr>
+            </thead>
+
+            <tbody id="body">
+                <tr>
+                    <!-- hiển thị kết quả -->
+                </tr>
+            </tbody>
+
+
+
+        </table>
+
+    </div>
+
+    <script src="/AdminAreas/js/main.js"></script>
+</body>
+</html>
+
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .container {
+        border-radius: 5px;
+        background-color: #f2f2f2;
+        padding: 20px;
+        width: 80%;
+        margin: auto;
+    }
+
+    .row {
+        width: 90%;
+        margin: auto;
+        height: 50px;
+    }
+
+        .row .left {
+            float: left;
+            width: 20%;
+            height: auto;
+        }
+
+        .row .right {
+            float: left;
+            width: 80%;
+            height: auto;
+        }
+
+    .left label {
+        padding: 12px 12px 12px 0;
+        display: inline-block;
+        font-size: 1.2rem;
+    }
+
+    .right input[type = text], [type = date] {
+        width: 70%;
+        padding: 12px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+    }
+
+    input[type = submit] {
+        background-color: #4CAF50;
+        color: white;
+        padding: 12px 20px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-left: 20%;
+    }
+
+    span {
+        padding-left: 10px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        /* display: none; */
+        margin-top: 30px;
+    }
+
+    tr, th, td {
+        border: 1px solid rgb(92, 89, 89);
+        text-align: center;
+        padding: 10px;
+    }
+
+        tr:nth-child(even) {
+            background-color: rgb(224, 222, 217);
+        }
+</style>
+

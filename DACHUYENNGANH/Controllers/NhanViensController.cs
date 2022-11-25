@@ -19,6 +19,11 @@ namespace DACHUYENNGANH.Controllers
             _context = context;
         }
 
+        public IActionResult TinhLai()
+        {
+            return View();
+        }
+
         // GET: NhanViens
         public async Task<IActionResult> Index()
         {
