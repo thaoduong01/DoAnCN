@@ -15,9 +15,7 @@
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoVayDoanhNghieps" asp-action="Index">Hồ Sơ Vay Doanh Nghiệp</a></li>
                 <li class="breadcrumb-item active">Danh Sách Hồ Sơ Vay Doanh Nghiệp</li>
             </ol>
-            <p class="btn btn-outline-secondary">
-                <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
-            </p>
+           
             <div class="card mb-4">
 
                 <div class="card-header">
@@ -68,8 +66,8 @@
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            @*<th scope="col">Mã Hồ Sơ Vay</th>
-                                            <th scope="col">Doanh Nghiệp</th>
+                                            <th scope="col">Mã Hồ Sơ Vay</th>
+                                            @*<th scope="col">Doanh Nghiệp</th>
                                             <th scope="col">Nhân Viên</th>*@
                                             <th scope="col">Số Tiền Vay</th>
                                             <th scope="col">Ngày Bắt Đầu Vay</th>
@@ -84,8 +82,8 @@
                                         {
                                             <tbody>
                                                 <tr>
-                                                    @*<td>@item.IdHsvay</td>
-                                                    <td>@item.IdDoanhNghiepNavigation.TenDoanhNghiep</td>
+                                                    <td>@item.IdHsvay</td>
+                                                    @*<td>@item.IdDoanhNghiepNavigation.TenDoanhNghiep</td>
                                             <td>@item.IdNhanVienNavigation.TenNhanVien</td>*@
                                                     <td>@item.SoTienVay</td>
                                                     <td>@Html.DisplayFor(modelItem => item.NgayBdvay)</td>

@@ -19,11 +19,12 @@
         </div>
         <form asp-action="Edit" class="card shadow" style="margin: auto; width: 80%; padding: 10px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdNhanVien" />
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Tên Nhân Viên</label>
                 <input type="text" class="form-control" asp-for="TenNhanVien">
             </div>
-            <input type="hidden" asp-for="IdNhanVien" />
+           
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Giới Tính</label>
                 <select class="form-control" value="@Model.GioiTinh" asp-for="GioiTinh" aria-label="Default select example">
@@ -56,7 +57,7 @@
             </div>
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Mật Khẩu</label>
-                <input type="text" class="form-control" asp-for="MatKhau">
+                <input type="password" class="form-control" asp-for="MatKhau">
             </div>
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Chức Vụ</label>

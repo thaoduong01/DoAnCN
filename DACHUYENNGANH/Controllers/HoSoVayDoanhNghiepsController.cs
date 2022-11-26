@@ -62,7 +62,7 @@ namespace DACHUYENNGANH.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdHsvay,NgayBdvay,SoTienVay,NgayKt,LaiSuat,IdNhanVien,IdDoanhNghiep")] HoSoVayDoanhNghiep hoSoVayDoanhNghiep)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 hoSoVayDoanhNghiep.IdHsvay = GetIDHD.GetIDHopDong();
                 _context.Add(hoSoVayDoanhNghiep);
@@ -104,7 +104,7 @@ namespace DACHUYENNGANH.Controllers
                 return NotFound();
             }
 
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 try
                 {

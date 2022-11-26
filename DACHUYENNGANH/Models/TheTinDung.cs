@@ -11,6 +11,8 @@ namespace DACHUYENNGANH.Models
         public DateTime NgayMoThe { get; set; }
         public DateTime NgayNhanThe { get; set; }
         public int IdHstinDung { get; set; }
+        public string? MaPin { get; set; }
+        public string? SoSauThe { get; set; }
 
         public virtual HoSoTinDung IdHstinDungNavigation { get; set; } = null!;
     }

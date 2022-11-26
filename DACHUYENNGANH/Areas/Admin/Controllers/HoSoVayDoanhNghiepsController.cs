@@ -105,7 +105,6 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             {
                 return NotFound();
             }
-
             return View(hoSoVayDoanhNghiep);
         }
 

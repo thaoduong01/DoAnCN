@@ -9,7 +9,7 @@ namespace DACHUYENNGANH.Models
         public string Gdkkd { get; set; } = null!;
         public string DieuLeCty { get; set; } = null!;
         public string BbhopHd { get; set; } = null!;
-        public string? TenKttruong { get; set; }
+        public string TenKttruong { get; set; } = null!;
         public string CmndCccdKtt { get; set; } = null!;
         public DateTime NgayNhanHs { get; set; }
         public string Gcndkthue { get; set; } = null!;

@@ -11,7 +11,7 @@ namespace DACHUYENNGANH.Models
         public DateTime NgayNhanHoSo { get; set; }
         public string BaoCaoThamDinh { get; set; } = null!;
         public string TenNguoiThamDinh { get; set; } = null!;
-        public string CmndCccd { get; set; } = null!;
+        public int CmndCccd { get; set; }
         public string IdCongTy { get; set; } = null!;
         public int IdHsdb { get; set; }
 
