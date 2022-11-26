@@ -69,7 +69,7 @@ function taoBang(ngayGiaiNgan, index, gocConLai, gocHangThang, laiHangThang, tie
         cot5.innerText = '0';
         cot6.innerText = '0';
     } else {
-        cot1.innerText = ngayGiaiNgan;
+        cot1.innerText = updateDate(ngayGiaiNgan);
         cot2.innerText = index;
         cot3.innerText = updateNumber(gocConLai);
         cot4.innerText = updateNumber(gocHangThang);
