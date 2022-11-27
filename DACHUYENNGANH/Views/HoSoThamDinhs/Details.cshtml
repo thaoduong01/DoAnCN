@@ -14,15 +14,15 @@
                 <li class="breadcrumb-item active">Thông Tin Hồ Sơ Thẩm Định</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Thẩm Định</h1>
-            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+            <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 10px;line-height: 2.5;">
                 <div class="card-body">
                     <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
                         <table style="color: #1F618D;font-weight: bold; font-size: 15px;">
                             <tbody>
-                                <tr>
+                                @*<tr>
                                     <td>Mã Hồ Sơ Thẩm Định: </td>
                                     <td style="padding:7px;">@Model.IdHsthamDinh</td>
-                                </tr>
+                                </tr>*@
                                 <tr>
                                     <td>Tên Công Ty: </td>
                                     <td style="padding: 7px;">@Model.IdCongTyNavigation.TenCty</td>
@@ -53,7 +53,10 @@
                                 </tr>
                                 <tr>
                                     <td>Báo Cáo Thẩm Định: </td>
-                                    <td style="padding: 7px;">@Model.BaoCaoThamDinh</td>
+                                    <td style="padding: 7px;">
+                                        <iframe class="img-thumbnail" src="@Model.BaoCaoThamDinh"></iframe>
+                                        <a href="@Model.BaoCaoThamDinh" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

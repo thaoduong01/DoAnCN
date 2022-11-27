@@ -45,6 +45,7 @@ namespace DACHUYENNGANH.Controllers
         // GET: KhachHangs/Create
         public IActionResult Create()
         {
+
             return View();
         }
 

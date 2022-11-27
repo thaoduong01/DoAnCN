@@ -1,3 +1,4 @@
+using DACHUYENNGANH.Helpers.FileManager;
 using DACHUYENNGANH.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -20,6 +21,10 @@ builder.Services.Configure<IdentityOptions>(opt=>
     opt.Lockout.MaxFailedAccessAttempts =5 ;
     opt.SignIn.RequireConfirmedAccount = true;
 });
+
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+builder.Services.AddTransient<IStorageService, FileStorageService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
 var mvcBuilder = builder.Services.AddRazorPages();

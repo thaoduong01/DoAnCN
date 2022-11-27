@@ -14,45 +14,45 @@
                 <li class="breadcrumb-item"><a asp-controller="HoSoPhapLies" asp-action="Index">Hồ Sơ Pháp Lý</a></li>
                 <li class="breadcrumb-item active">Xóa Hồ Sơ Pháp Lý</li>
             </ol>
-            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+            <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 10px; padding: 2rem">
                 <div class="card-body">
-                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                    <div class="table-responsive" >
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>Mã Hồ Sơ Pháp Lý: </td>
+                                    <td style="text-align: left">Mã Hồ Sơ Pháp Lý: </td>
                                     <td style="padding:7px;">@Model.IdPhapLy</td>
                                 </tr>
                                 <tr>
-                                    <td>Mã Hồ Sơ Vay: </td>
+                                    <td style="text-align: left">Mã Hồ Sơ Vay: </td>
                                     <td style="padding:7px;">@Model.IdHsvay</td>
                                 </tr>
                                 <tr>
-                                    <td>Giấy Chứng Nhận Đăng Ký Kinh Doanh: </td>
+                                    <td style ="text-align: left">Giấy Chứng Nhận Đăng Ký Kinh Doanh: </td>
                                     <td style="padding: 7px;">@Model.Gdkkd</td>
                                 </tr>
                                 <tr>
-                                    <td>Điều Lệ Công Ty: </td>
+                                    <td style="text-align: left">Điều Lệ Công Ty: </td>
                                     <td style="padding:7px;">@Model.DieuLeCty</td>
                                 </tr>
                                 <tr>
-                                    <td>Biên Bản Họp Hội Đồng: </td>
+                                    <td style="text-align: left">Biên Bản Họp Hội Đồng: </td>
                                     <td style="padding:7px;">@Model.BbhopHd</td>
                                 </tr>
                                 <tr>
-                                    <td>Kế Toán Trưởng: </td>
+                                    <td style="text-align: left">Kế Toán Trưởng: </td>
                                     <td style="padding:7px;">@Model.TenKttruong</td>
                                 </tr>
                                 <tr>
-                                    <td>CMND/CCCD Kế Toán Trưởng: </td>
-                                    <td style="padding:7px;"@Model.CmndCccdKtt</td>
+                                    <td style="text-align: left">CMND/CCCD Kế Toán Trưởng: </td>
+                                    <td style="padding:7px;">@Model.CmndCccdKtt</td>
                                 </tr>
                                 <tr>
-                                    <td>Ngày Nhận Hồ Sơ: </td>
+                                    <td style="text-align: left">Ngày Nhận Hồ Sơ: </td>
                                     <td style="padding:7px;">@Html.DisplayFor(model => model.NgayNhanHs)</td>
                                 </tr>
                                 <tr>
-                                    <td>Giấy Chứng Nhận Đăng Ký Thuế: </td>
+                                    <td style="text-align: left">Giấy Chứng Nhận Đăng Ký Thuế: </td>
                                     <td style="padding: 7px;">@Model.Gcndkthue</td>
                                 </tr>
                             </tbody>

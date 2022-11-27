@@ -9,13 +9,13 @@
     <main>
         <div class="container-fluid px-4" style="text-align: center;">
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoPhapLies" asp-action="Index">Hồ Sơ Pháp Lý</a></li>
+                <a asp-controller="Home" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>Home</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoPhapLies" asp-action="Index">Hồ Sơ Pháp Lý</a></li>
                 <li class="breadcrumb-item active">Thay Đổi Hồ Sơ Pháp Lý</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thay Đổi Hồ Sơ Pháp Lý</h1>
         </div>
-        <form asp-action="Edit" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;">
+        <form asp-action="Edit" class="card shadow" style="margin: auto; width: 80%; padding: 10px;">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdPhapLy" />
             <div class="form-group" style="line-height: 3;">

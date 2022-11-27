@@ -10,7 +10,7 @@ namespace DACHUYENNGANH.Models
             TheTinDungs = new HashSet<TheTinDung>();
         }
 
-        public int IdHstinDung { get; set; }
+        public string IdHstinDung { get; set; } = null!;
         public DateTime NgayNhanHs { get; set; }
         public double PhiMoThe { get; set; }
         public string ChuKy { get; set; } = null!;

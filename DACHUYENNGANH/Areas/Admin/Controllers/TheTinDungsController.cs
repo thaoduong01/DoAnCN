@@ -27,7 +27,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string search, int id)
+        public IActionResult Index(string search, string id)
         {
             ViewData["Getchucvudetails"] = search;
             ViewBag.HoSoTD = _context.HoSoTinDungs;
@@ -43,7 +43,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                 ketDN = ketDN.Where(x => x.Stk.Contains(search) || x.TenTk.Contains(search) || x.SoTrenThe.Contains(search));
 
             }
-            if (id != 0)
+            if (id.Length != 0)
             {
                 ketDN = ketDN.Where(x => x.IdHstinDung == id);
             }

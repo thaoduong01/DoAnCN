@@ -1,0 +1,25 @@
+﻿@model DACHUYENNGANH.Models.LoaiHoSoTsdb
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>LoaiHoSoTsdb</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.TenLoai)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.TenLoai)
+        </dd>
+    </dl>
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.IdLoaiHs">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>

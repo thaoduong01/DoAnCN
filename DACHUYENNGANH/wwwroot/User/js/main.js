@@ -29,6 +29,7 @@ function calculateTienLai(gocConLai, lai) {
 
 // Tính toán
 function result(tienGoc, laiSuat, time, ngayGiaiNgan) {
+    window.location.reload();
     var tienGocConLai = tienGoc;
     var gocHangThang = calculateTienGoc(tienGoc, time);
     var tongTienPhaiTra = 0;
@@ -69,7 +70,7 @@ function taoBang(ngayGiaiNgan, index, gocConLai, gocHangThang, laiHangThang, tie
         cot5.innerText = '0';
         cot6.innerText = '0';
     } else {
-        cot1.innerText = ngayGiaiNgan;
+        cot1.innerText = updateDate(ngayGiaiNgan);
         cot2.innerText = index;
         cot3.innerText = updateNumber(gocConLai);
         cot4.innerText = updateNumber(gocHangThang);
@@ -98,6 +99,7 @@ function taoHangTongKq(tongGoc, tongLai, tongTienPhaiTra) {
 
 // Update lại ngày
 function updateDate(date) {
+    
     return date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear();
 }
 

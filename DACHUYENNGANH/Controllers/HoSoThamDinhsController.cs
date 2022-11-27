@@ -6,16 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Models.HoSo;
+using System.Net.Http.Headers;
 
 namespace DACHUYENNGANH.Controllers
 {
     public class HoSoThamDinhsController : Controller
     {
         private readonly DAChuyenNganhContext _context;
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
-        public HoSoThamDinhsController(DAChuyenNganhContext context)
+        public HoSoThamDinhsController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: HoSoThamDinhs
@@ -99,18 +105,39 @@ namespace DACHUYENNGANH.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHsthamDinh,SoTienThamDinh,NgayThamDinh,NgayNhanHoSo,BaoCaoThamDinh,TenNguoiThamDinh,CmndCccd,IdCongTy,IdHsdb")] HoSoThamDinh hoSoThamDinh)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoThamDinhCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoThamDinh);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdCongTy"] = new SelectList(_context.CongTyThamDinhs, "IdCongTy", "IdCongTy", hoSoThamDinh.IdCongTy);
-            ViewData["IdHsdb"] = new SelectList(_context.HoSoTaiSanDbs, "IdHsdb", "IdHsdb", hoSoThamDinh.IdHsdb);
-            return View(hoSoThamDinh);
+            HoSoThamDinh hs = new HoSoThamDinh()
+            {
+                IdHsdb = request.IdHsdb,
+                IdCongTy = request.IdCongTy,
+                SoTienThamDinh = request.SoTienThamDinh,
+                NgayThamDinh = request.NgayThamDinh,
+                NgayNhanHoSo = DateTime.Now,
+                BaoCaoThamDinh = await SaveFile(request.BaoCaoThamDinh),
+                TenNguoiThamDinh = request.TenNguoiThamDinh,
+                CmndCccd = request.CmndCccd
+                
+
+            };
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ pháp lý thất bạn!!");
+            return View(request);
+        }
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         // GET: HoSoThamDinhs/Edit/5

@@ -36,7 +36,8 @@ namespace DACHUYENNGANH.Models
         {
             if (!optionsBuilder.IsConfigured)
             {
-                optionsBuilder.UseSqlServer("Server=THAODUONG\\LOCAL;Database=DAChuyenNganh;User Id=sa;password=123;Trusted_Connection=False;MultipleActiveResultSets=true;");
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
+                optionsBuilder.UseSqlServer("Server=ADMIN\\CAMTHUY;Database=DAChuyenNganh;User Id=sa;password=admin12345;Trusted_Connection=False;MultipleActiveResultSets=true;");
             }
         }
 
@@ -362,7 +363,8 @@ namespace DACHUYENNGANH.Models
                 entity.ToTable("HoSoTinDung");
 
                 entity.Property(e => e.IdHstinDung)
-                    .ValueGeneratedNever()
+                    .HasMaxLength(16)
+                    .IsUnicode(false)
                     .HasColumnName("IdHSTinDung");
 
                 entity.Property(e => e.ChuKy)
@@ -490,7 +492,7 @@ namespace DACHUYENNGANH.Models
             modelBuilder.Entity<LoaiHoSoTsdb>(entity =>
             {
                 entity.HasKey(e => e.IdLoaiHs)
-                    .HasName("PK__LoaiHoSo__B41B73F030000BF5");
+                    .HasName("PK__LoaiHoSo__B41B73F0CEBF094C");
 
                 entity.ToTable("LoaiHoSoTSDB");
 
@@ -563,7 +565,10 @@ namespace DACHUYENNGANH.Models
                     .IsUnicode(false)
                     .HasColumnName("STK");
 
-                entity.Property(e => e.IdHstinDung).HasColumnName("IdHSTinDung");
+                entity.Property(e => e.IdHstinDung)
+                    .HasMaxLength(16)
+                    .IsUnicode(false)
+                    .HasColumnName("IdHSTinDung");
 
                 entity.Property(e => e.MaPin)
                     .HasMaxLength(6)
