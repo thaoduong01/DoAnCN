@@ -44,8 +44,8 @@
                                         <br />
                                         <form method="get" asp-action="Index">
                                             <div class="input-group-append">
-                                                <select asp-items="@(new SelectList(ViewBag.HoSoVay, "IdHsvay", "IdDoanhNghiep"))" name="id" class="custom-select custom-select-sm form-control form-control-sm">
-                                                    <option>Chọn Doanh Nghiệp</option>
+                                                <select asp-items="@(new SelectList(ViewBag.HoSoVay, "IdHsvay", "IdHsvay"))" name="id" class="custom-select custom-select-sm form-control form-control-sm">
+                                                    <option>Hồ Sơ Vay</option>
                                                 </select>
                                                 <div class="input-group-append">
                                                     <button class="btn btn-primary" type="submit">

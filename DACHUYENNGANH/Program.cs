@@ -1,3 +1,4 @@
+using DACHUYENNGANH.Helpers.FileManager;
 using DACHUYENNGANH.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DAChuyenNganhContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("QLNH")
     ?? throw new InvalidOperationException("Connection string 'QLNH' not found.")));
+
 // Add services to the container.
 builder.Services.AddControllersWithViews();
 builder.Services.Configure<IdentityOptions>(opt=>
@@ -20,6 +22,10 @@ builder.Services.Configure<IdentityOptions>(opt=>
     opt.Lockout.MaxFailedAccessAttempts =5 ;
     opt.SignIn.RequireConfirmedAccount = true;
 });
+
+builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
+builder.Services.AddTransient<IStorageService, FileStorageService>();
+builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
 var mvcBuilder = builder.Services.AddRazorPages();

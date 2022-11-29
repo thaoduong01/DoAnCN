@@ -5,21 +5,38 @@
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
 }
 
-<h1>Details</h1>
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="KhachHangs" asp-action="Index">Khách Hàng</a></li>
+                <li class="breadcrumb-item active">Thông Tin Khách Hàng</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Khách Hàng</h1>
+            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+                <div class="card-body">
+                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Mã Khách Hàng: </td>
+                                    <td style="padding:7px;">@Model.IdKhachHang</td>
+                                </tr>
+                                <tr>
+                                    <td>Mã Số Thuế: </td>
+                                    <td style="padding:7px;">@Model.MaSoThue</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
 
-<div>
-    <h4>KhachHang</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaSoThue)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaSoThue)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdKhachHang">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
+                <a asp-action="Edit" asp-route-id="@Model.IdKhachHang">Edit</a> |
+                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+            </div>
+        </div>
+    </main>
 </div>

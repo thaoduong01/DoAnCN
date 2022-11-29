@@ -32,8 +32,17 @@
                                         Search:
                                         <form method="get" asp-action="Index">
                                             <div class="input-group rounded">
-                                                <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." @*value="@ViewData["Getnhanviendetails"]"*@ name="search" />
+                                                Start Date <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." name="fromdate" />
+                                                End Date <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." name="todate" />
                                             </div>
+                                            <div class="input-group-append">
+                                                <button class="btn btn-primary" type="submit">
+                                                    <i class="fas fa-search fa-sm"></i>
+                                                </button>
+                                            </div>
+                                            @*<div class="input-group rounded">
+                                                <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." name="search" />
+                                            </div>*@
                                         </form>
                                     </label>
                                 </div>

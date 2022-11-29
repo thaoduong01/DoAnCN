@@ -6,16 +6,21 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using System.Net.Http.Headers;
+using DACHUYENNGANH.Models.HoSo;
+using DACHUYENNGANH.Helpers.FileManager;
 
 namespace DACHUYENNGANH.Controllers
 {
     public class HoSoPhapLiesController : Controller
     {
         private readonly DAChuyenNganhContext _context;
-
-        public HoSoPhapLiesController(DAChuyenNganhContext context)
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+        public HoSoPhapLiesController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: HoSoPhapLies
@@ -88,6 +93,8 @@ namespace DACHUYENNGANH.Controllers
         public IActionResult Create()
         {
             ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay");
+            // var nwDt = DateTime.Now.ToShortDateString();
+            // ViewData["nowDt"] = nwDt;
             return View();
         }
 
@@ -95,17 +102,39 @@ namespace DACHUYENNGANH.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdPhapLy,Gdkkd,DieuLeCty,BbhopHd,TenKttruong,CmndCccdKtt,NgayNhanHs,Gcndkthue,IdHsvay")] HoSoPhapLy hoSoPhapLy)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoPhapLyCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoPhapLy);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay", hoSoPhapLy.IdHsvay);
-            return View(hoSoPhapLy);
+            HoSoPhapLy hs = new HoSoPhapLy()
+            {
+                IdHsvay = request.IdHsvay,
+                Gdkkd = await SaveFile(request.Gdkkd),
+                DieuLeCty = await SaveFile(request.Gdkkd),
+                BbhopHd = await SaveFile(request.BbhopHd),
+                TenKttruong = request.TenKttruong,
+                CmndCccdKtt = request.CmndCccdKtt,
+                NgayNhanHs = System.DateTime.Now,
+                Gcndkthue = await SaveFile(request.Gcndkthue)
+
+
+            };
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ thất bại!!");
+            return View(request);
+        }
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         // GET: HoSoPhapLies/Edit/5
@@ -194,14 +223,14 @@ namespace DACHUYENNGANH.Controllers
             {
                 _context.HoSoPhapLies.Remove(hoSoPhapLy);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HoSoPhapLyExists(int id)
         {
-          return _context.HoSoPhapLies.Any(e => e.IdPhapLy == id);
+            return _context.HoSoPhapLies.Any(e => e.IdPhapLy == id);
         }
     }
 }

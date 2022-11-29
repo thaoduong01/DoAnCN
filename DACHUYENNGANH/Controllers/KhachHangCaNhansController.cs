@@ -86,7 +86,7 @@ namespace DACHUYENNGANH.Controllers
         // GET: KhachHangCaNhans/Create
         public IActionResult Create()
         {
-            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "IdKhachHang");
+            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "MaSoThue");
             return View();
         }
 
@@ -103,7 +103,7 @@ namespace DACHUYENNGANH.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "IdKhachHang", khachHangCaNhan.IdKhachHang);
+            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "MaSoThue", khachHangCaNhan.IdKhachHang);
             return View(khachHangCaNhan);
         }
 
@@ -120,7 +120,7 @@ namespace DACHUYENNGANH.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "IdKhachHang", khachHangCaNhan.IdKhachHang);
+            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "MaSoThue", khachHangCaNhan.IdKhachHang);
             return View(khachHangCaNhan);
         }
 
@@ -156,7 +156,7 @@ namespace DACHUYENNGANH.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "IdKhachHang", khachHangCaNhan.IdKhachHang);
+            ViewData["IdKhachHang"] = new SelectList(_context.KhachHangs, "IdKhachHang", "MaSoThue", khachHangCaNhan.IdKhachHang);
             return View(khachHangCaNhan);
         }
 

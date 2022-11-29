@@ -24,6 +24,19 @@ namespace DACHUYENNGANH.Controllers
               return View(await _context.KhachHangs.ToListAsync());
         }
 
+        [HttpGet]
+        public IActionResult Index(string? search)
+        {
+            ViewData["Getkhachhangndetails"] = search;
+
+            var khachHang = from x in _context.KhachHangs select x;
+            if (!string.IsNullOrEmpty(search))
+            {
+                khachHang = khachHang.Where(x => x.MaSoThue.Contains(search));
+            }
+            return View(khachHang);
+        }
+
         // GET: KhachHangs/Details/5
         public async Task<IActionResult> Details(int? id)
         {

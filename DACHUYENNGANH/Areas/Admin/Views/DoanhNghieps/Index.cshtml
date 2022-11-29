@@ -48,12 +48,12 @@
                                         <form method="get" asp-action="Index">
                                             <div class="input-group rounded">
                                                 <input type="search" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" value="@ViewData["Getdoanhnghiepdetails"]" name="search" />
-                                                <span class="input-group-text border-0" id="search-addon">
-                                                    <a asp-action="Index">Get All</a>
-                                                </span>
+                                           
                                             </div>
                                         </form>
                                     </label>
+
+                                    <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
                                 </div>
                             </div>
                         </div>
@@ -111,68 +111,3 @@
     </main>
 </div>
 
-@*<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenDoanhNghiep)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.DiaChi)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Sdt)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenNguoiDaiDien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CmndCccd)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.IdKhachHangNavigation)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenDoanhNghiep)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.DiaChi)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Sdt)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenNguoiDaiDien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CmndCccd)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.IdKhachHangNavigation.IdKhachHang)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdDoanhNghiep">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdDoanhNghiep">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdDoanhNghiep">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>*@

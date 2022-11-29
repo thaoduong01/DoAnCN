@@ -6,16 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Models.HoSo;
+using System.Net.Http.Headers;
 
 namespace DACHUYENNGANH.Controllers
 {
     public class HoSoBaoCaoTcsController : Controller
     {
         private readonly DAChuyenNganhContext _context;
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
-        public HoSoBaoCaoTcsController(DAChuyenNganhContext context)
+        public HoSoBaoCaoTcsController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: HoSoBaoCaoTcs
@@ -34,6 +40,11 @@ namespace DACHUYENNGANH.Controllers
             //var baocao = from x in _context.HoSoBaoCaoTcs select x;
 
             ViewBag.HoSoVay = _context.HoSoVayDoanhNghieps;
+
+            if (_context.HoSoBaoCaoTcs == null)
+            {
+                return Problem("Entity set 'MvcHoSoBaoCaoTcContext.HoSoBaoCaoTcs'  is null.");
+            }
             var ket = from s in _context.HoSoBaoCaoTcs
                       join i in _context.HoSoVayDoanhNghieps
                       on s.IdHsvay equals i.IdHsvay
@@ -95,18 +106,39 @@ namespace DACHUYENNGANH.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdBctc,ToVat,HopDongSdld,HopDongMuaBan,SaoKeTknh,NgayNhanHs,BctaiChinh,IdHsvay")] HoSoBaoCaoTc hoSoBaoCaoTc)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoBaoCaoTCCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoBaoCaoTc);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay", hoSoBaoCaoTc.IdHsvay);
-            return View(hoSoBaoCaoTc);
+            HoSoBaoCaoTc hs = new HoSoBaoCaoTc()
+            {
+                IdHsvay = request.IdHsvay,
+                ToVat = await SaveFile(request.ToVat),
+                HopDongSdld = await SaveFile(request.HopDongSdld),
+                HopDongMuaBan = await SaveFile(request.HopDongMuaBan),
+                SaoKeTknh = await SaveFile(request.SaoKeTknh),
+                NgayNhanHs = DateTime.Now,
+                BctaiChinh = await SaveFile(request.BctaiChinh),
+
+
+            };
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ thất bại!!");
+            return View(request);
         }
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
+        }
+
 
         // GET: HoSoBaoCaoTcs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -194,14 +226,14 @@ namespace DACHUYENNGANH.Controllers
             {
                 _context.HoSoBaoCaoTcs.Remove(hoSoBaoCaoTc);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HoSoBaoCaoTcExists(int id)
         {
-          return _context.HoSoBaoCaoTcs.Any(e => e.IdBctc == id);
+            return _context.HoSoBaoCaoTcs.Any(e => e.IdBctc == id);
         }
     }
 }

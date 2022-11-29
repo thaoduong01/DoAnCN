@@ -33,7 +33,12 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             ViewBag.KhachHang = _context.KhachHangCaNhans;
             ViewBag.NhanVien = _context.NhanViens;
             /*var hsvay = from x in _context.HoSoVayDoanhNghieps select x*/
-            ;
+
+            //DateTime fromdate = DateTime.Now.AddDays(-100);
+
+            //DateTime todate = DateTime.Now;
+
+            //var data = _context.HoSoTinDungs.Where(m => m.NgayNhanHs >= fromdate && m.NgayNhanHs <= todate);
 
             var ketDN = from s in _context.HoSoTinDungs
                         join i in _context.KhachHangCaNhans
@@ -69,7 +74,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         // GET: Admin/HoSoTinDungs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null || _context.HoSoTinDungs == null)
             {
@@ -115,7 +120,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         // GET: Admin/HoSoTinDungs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null || _context.HoSoTinDungs == null)
             {
@@ -137,7 +142,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
+        public async Task<IActionResult> Edit(string id, [Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
         {
             if (id != hoSoTinDung.IdHstinDung)
             {
@@ -170,7 +175,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         // GET: Admin/HoSoTinDungs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null || _context.HoSoTinDungs == null)
             {
@@ -192,7 +197,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         // POST: Admin/HoSoTinDungs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.HoSoTinDungs == null)
             {
@@ -208,7 +213,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HoSoTinDungExists(int id)
+        private bool HoSoTinDungExists(string id)
         {
           return _context.HoSoTinDungs.Any(e => e.IdHstinDung == id);
         }

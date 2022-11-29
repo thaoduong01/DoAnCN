@@ -26,7 +26,13 @@ namespace DACHUYENNGANH.Controllers
             ViewBag.DoanhNghiep = _context.DoanhNghieps;
             ViewBag.NhanVien = _context.NhanViens;
             /*var hsvay = from x in _context.HoSoVayDoanhNghieps select x*/
-            ;
+
+
+            DateTime fromdate = DateTime.Now.AddDays(-45);
+
+            DateTime todate = DateTime.Now;
+
+            var data = _context.HoSoVayDoanhNghieps.Where(m => m.NgayBdvay >= fromdate && m.NgayBdvay <= todate || m.NgayKt >= fromdate && m.NgayKt <= todate);
 
             var ket = from s in _context.HoSoVayDoanhNghieps
                         join l in _context.NhanViens
@@ -45,7 +51,7 @@ namespace DACHUYENNGANH.Controllers
                 ket = ket.Where(x => x.IdNhanVien == idnv || x.IdDoanhNghiep == iddn).OrderByDescending(x => x.NgayBdvay);
             }
             List<HoSoVayDoanhNghiep> hoSoVayDoanhNghieps = new List<HoSoVayDoanhNghiep>();
-            foreach (var k in ket)
+            foreach (var k in data)
             {
                 HoSoVayDoanhNghiep hsvay = new HoSoVayDoanhNghiep();
                 hsvay.IdHsvay = k.IdHsvay;

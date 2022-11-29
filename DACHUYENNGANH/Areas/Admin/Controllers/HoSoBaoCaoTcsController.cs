@@ -35,6 +35,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             //var baocao = from x in _context.HoSoBaoCaoTcs select x;
 
             ViewBag.HoSoVay = _context.HoSoVayDoanhNghieps;
+
             var ket = from s in _context.HoSoBaoCaoTcs
                       join i in _context.HoSoVayDoanhNghieps
                       on s.IdHsvay equals i.IdHsvay

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DACHUYENNGANH.Models
 {
@@ -10,7 +11,10 @@ namespace DACHUYENNGANH.Models
             TheTinDungs = new HashSet<TheTinDung>();
         }
 
-        public int IdHstinDung { get; set; }
+        public string IdHstinDung { get; set; } = null!;
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanHs { get; set; }
         public double PhiMoThe { get; set; }
         public string ChuKy { get; set; } = null!;

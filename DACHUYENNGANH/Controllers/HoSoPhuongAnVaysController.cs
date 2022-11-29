@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Models.HoSo;
+using System.Net.Http.Headers;
 
 namespace DACHUYENNGANH.Controllers
 {
@@ -13,9 +16,12 @@ namespace DACHUYENNGANH.Controllers
     {
         private readonly DAChuyenNganhContext _context;
 
-        public HoSoPhuongAnVaysController(DAChuyenNganhContext context)
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+        public HoSoPhuongAnVaysController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: HoSoPhuongAnVays
@@ -92,17 +98,33 @@ namespace DACHUYENNGANH.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHspavay,PhuongAnKd,KeHoachTraNo,NgayNhanHs,IdHsvay")] HoSoPhuongAnVay hoSoPhuongAnVay)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoPhuongAnVayCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoPhuongAnVay);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay", hoSoPhuongAnVay.IdHsvay);
-            return View(hoSoPhuongAnVay);
+            HoSoPhuongAnVay hs = new HoSoPhuongAnVay()
+            {
+                IdHsvay = request.IdHsvay,
+                PhuongAnKd = await SaveFile(request.PhuongAnKd),
+                KeHoachTraNo = await SaveFile(request.KeHoachTraNo),
+                NgayNhanHs = DateTime.Now
+            };
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ thất bại!!");
+            return View(request);
+        }
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         // GET: HoSoPhuongAnVays/Edit/5
@@ -191,14 +213,14 @@ namespace DACHUYENNGANH.Controllers
             {
                 _context.HoSoPhuongAnVays.Remove(hoSoPhuongAnVay);
             }
-            
+
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool HoSoPhuongAnVayExists(int id)
         {
-          return _context.HoSoPhuongAnVays.Any(e => e.IdHspavay == id);
+            return _context.HoSoPhuongAnVays.Any(e => e.IdHspavay == id);
         }
     }
 }

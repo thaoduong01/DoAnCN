@@ -362,7 +362,8 @@ namespace DACHUYENNGANH.Models
                 entity.ToTable("HoSoTinDung");
 
                 entity.Property(e => e.IdHstinDung)
-                    .ValueGeneratedNever()
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
                     .HasColumnName("IdHSTinDung");
 
                 entity.Property(e => e.ChuKy)
@@ -563,7 +564,10 @@ namespace DACHUYENNGANH.Models
                     .IsUnicode(false)
                     .HasColumnName("STK");
 
-                entity.Property(e => e.IdHstinDung).HasColumnName("IdHSTinDung");
+                entity.Property(e => e.IdHstinDung)
+                    .HasMaxLength(20)
+                    .IsUnicode(false)
+                    .HasColumnName("IdHSTinDung");
 
                 entity.Property(e => e.MaPin)
                     .HasMaxLength(6)

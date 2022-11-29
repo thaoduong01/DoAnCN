@@ -14,46 +14,59 @@
                 <li class="breadcrumb-item active">Thông Tin Hồ Sơ Pháp Lý</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Pháp Lý</h1>
-            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+            <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 10px; padding: 2rem" method="post" enctype="multipart/form-data">
                 <div class="card-body">
                     <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
-                        <tablestyle="color: #1F618D;font-weight: bold; font-size: 15px;">
+                        <table style="color: #1F618D;font-weight: bold; font-size: 15px;">
                             <tbody>
-                                <tr>
-                                    <td>Mã Hồ Sơ Pháp Lý: </td>
+                                @*<tr>
+                                    <td style="text-align: left">Mã Hồ Sơ Pháp Lý: </td>
                                     <td style="padding:7px;">@Model.IdPhapLy</td>
-                                </tr>
+                                </tr>*@
                                 <tr>
-                                    <td>Mã Hồ Sơ Vay: </td>
+                                    <td style="text-align: left">Mã Hồ Sơ Vay: </td>
                                     <td style="padding:7px;">@Model.IdHsvay</td>
                                 </tr>
                                 <tr>
-                                    <td>Giấy Chứng Nhận Đăng Ký Kinh Doanh: </td>
-                                    <td style="padding: 7px;">@Model.Gdkkd</td>
+                                    <td style="text-align: left">Giấy Chứng Nhận Đăng Ký Kinh Doanh: </td>
+                                    <td style="padding: 7px;">
+                                        <iframe class="img-thumbnail" src="@Model.Gdkkd"></iframe>
+                                        <a href="@Model.Gdkkd" target="_blank">Xem</a>
+                                    </td>
+                                    
                                 </tr>
                                 <tr>
-                                    <td>Điều Lệ Công Ty: </td>
-                                    <td style="padding:7px;">@Model.DieuLeCty</td>
+                                    <td style="text-align: left">Điều Lệ Công Ty: </td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.DieuLeCty"></iframe>
+                                        <a href="@Model.DieuLeCty" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
-                                    <td>Biên Bản Họp Hội Đồng: </td>
-                                    <td style="padding:7px;">@Model.BbhopHd</td>
+                                    <td style="text-align: left">Biên Bản Họp Hội Đồng: </td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.BbhopHd"></iframe>
+                                        <a href="@Model.BbhopHd" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Kế Toán Trưởng: </td>
                                     <td style="padding:7px;">@Model.TenKttruong</td>
                                 </tr>
                                 <tr>
-                                    <td>CMND/CCCD Kế Toán Trưởng: </td>
-                                    <td style="padding:7px;" @Model.CmndCccdKtt</td>
+                                    <td style="text-align: left">CMND/CCCD Kế Toán Trưởng: </td>
+                                    <td style="padding:7px;"> @Model.CmndCccdKtt</td>
                                 </tr>
                                 <tr>
-                                    <td>Ngày Nhận Hồ Sơ: </td>
+                                    <td style="text-align: left">Ngày Nhận Hồ Sơ: </td>
                                     <td style="padding:7px;">@Html.DisplayFor(model => model.NgayNhanHs)</td>
                                 </tr>
                                 <tr>
-                                    <td>Giấy Chứng Nhận Đăng Ký Thuế: </td>
-                                    <td style="padding: 7px;">@Model.Gcndkthue</td>
+                                    <td style="text-align: left">Giấy Chứng Nhận Đăng Ký Thuế: </td>
+                                    <td style="padding: 7px;">
+                                        <iframe class="img-thumbnail" src="@Model.Gcndkthue"></iframe>
+                                        <a href="@Model.Gcndkthue" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DACHUYENNGANH.Models
 {
@@ -17,6 +18,9 @@ namespace DACHUYENNGANH.Models
         public string TbnopPhiNd { get; set; } = null!;
         public string SoDangKiem { get; set; } = null!;
         public string ChungNhanBaoHiem { get; set; } = null!;
+
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanHs { get; set; }
         public int IdLoaiHs { get; set; }
         public string IdHsvay { get; set; } = null!;

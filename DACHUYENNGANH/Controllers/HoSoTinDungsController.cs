@@ -6,16 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.TienIch;
+using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Models.HoSo;
+using System.Net.Http.Headers;
 
 namespace DACHUYENNGANH.Controllers
 {
     public class HoSoTinDungsController : Controller
     {
         private readonly DAChuyenNganhContext _context;
-
-        public HoSoTinDungsController(DAChuyenNganhContext context)
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+        public HoSoTinDungsController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: Admin/HoSoTinDungs
@@ -68,7 +74,7 @@ namespace DACHUYENNGANH.Controllers
         }
 
         // GET: Admin/HoSoTinDungs/Details/5
-        public async Task<IActionResult> Details(int? id)
+        public async Task<IActionResult> Details(string? id)
         {
             if (id == null || _context.HoSoTinDungs == null)
             {
@@ -99,22 +105,41 @@ namespace DACHUYENNGANH.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoTinDungCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoTinDung);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdKhachHangCaNhan"] = new SelectList(_context.KhachHangCaNhans, "IdKhachHangCaNhan", "TenKh", hoSoTinDung.IdKhachHangCaNhan);
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien", hoSoTinDung.IdNhanVien);
-            return View(hoSoTinDung);
+            HoSoTinDung hs = new HoSoTinDung()
+            {
+                IdNhanVien = request.IdNhanVien,
+                IdKhachHangCaNhan = request.IdKhachHangCaNhan,
+                NgayNhanHs = DateTime.Now,
+                PhiMoThe = request.PhiMoThe,
+                ChuKy = await SaveFile(request.ChuKy),
+
+
+            };
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ thất bại!!");
+            return View(request);
+        }
+
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         // GET: Admin/HoSoTinDungs/Edit/5
-        public async Task<IActionResult> Edit(int? id)
+        public async Task<IActionResult> Edit(string? id)
         {
             if (id == null || _context.HoSoTinDungs == null)
             {
@@ -136,7 +161,7 @@ namespace DACHUYENNGANH.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
+        public async Task<IActionResult> Edit(string id, [Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
         {
             if (id != hoSoTinDung.IdHstinDung)
             {
@@ -169,7 +194,7 @@ namespace DACHUYENNGANH.Controllers
         }
 
         // GET: Admin/HoSoTinDungs/Delete/5
-        public async Task<IActionResult> Delete(int? id)
+        public async Task<IActionResult> Delete(string? id)
         {
             if (id == null || _context.HoSoTinDungs == null)
             {
@@ -191,7 +216,7 @@ namespace DACHUYENNGANH.Controllers
         // POST: Admin/HoSoTinDungs/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(string id)
         {
             if (_context.HoSoTinDungs == null)
             {
@@ -207,7 +232,7 @@ namespace DACHUYENNGANH.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        private bool HoSoTinDungExists(int id)
+        private bool HoSoTinDungExists(string id)
         {
             return _context.HoSoTinDungs.Any(e => e.IdHstinDung == id);
         }

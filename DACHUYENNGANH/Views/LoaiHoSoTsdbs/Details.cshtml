@@ -1,0 +1,43 @@
+﻿@model DACHUYENNGANH.Models.LoaiHoSoTsdb
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <h1 class="mt-4">Thông Tin Loại Tài Sản Đảm Bảo</h1>
+            <ol class="breadcrumb mb-4">
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="LoaiHoSoTsdbs" asp-action="Index">Loại Hồ Sơ Đảm Bảo</a></li>
+                <li class="breadcrumb-item active">Thông Tin Loại Tài Sản Đảm Bảo</li>
+            </ol>
+            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+                <div class="card-body">
+                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                        <table>
+                            <tbody>
+                                <tr>
+                                    <td>Mã Loại Tài Sản Đảm Bảo: </td>
+                                    <td style="padding:7px;">@Model.IdLoaiHs</td>
+                                </tr>
+                                <tr>
+                                    <td>Tên Loại Tài Sản Đảm Bảo: </td>
+                                    <td style="padding:7px;">@Model.TenLoai</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.IdLoaiHs">Edit</a> |
+                <a class="btn btn-primary" asp-area="Admin" asp-action="Index">Trở Về</a>
+            </div>
+          
+        </div>
+    </main>
+</div>
+

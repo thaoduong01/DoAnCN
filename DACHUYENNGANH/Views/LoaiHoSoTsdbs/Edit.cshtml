@@ -1,0 +1,46 @@
+﻿@model DACHUYENNGANH.Models.LoaiHoSoTsdb
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_LayoutUser.cshtml";
+}
+
+<div id="layoutSidenav_content">
+    <main>
+        <div class="container-fluid px-4" style="text-align: center;">
+            <ol class="breadcrumb mb-4">
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="LoaiHoSoTsdbs" asp-action="Index">Loại Hồ Sơ Đảm Bảo</a></li>
+                <li class="breadcrumb-item active">Thay Đổi Loại Hồ Sơ Đảm Bảo</li>
+            </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thay Đổi Loại Hồ Sơ Đảm Bảo</h1>
+        </div>
+        <form asp-action="Edit" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdLoaiHs" />
+            <div class="form-group" style="line-height: 3;">
+                <label style="text-align: center;">Tên Loại Hồ Sơ Đảm Bảo</label>
+                <input type="text" class="form-control" asp-for="TenLoai">
+            </div>
+
+            <div class="form-group row">
+                <div class="col-sm-10" style="line-height: 5; text-align: center;">
+                    <button type="submit" class="btn btn-primary">Thay Đổi</button>
+                </div>
+
+            </div>
+            <div class="form-group">
+                <a asp-action="Index">Trở Về</a>
+            </div>
+        </form>
+    </main>
+</div>
+
+<style>
+
+    .form-group {
+        color: #1F618D;
+        font-weight: bold;
+        font-size: 15px;
+    }
+</style>

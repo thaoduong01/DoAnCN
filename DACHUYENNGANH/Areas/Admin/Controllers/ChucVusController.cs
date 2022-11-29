@@ -23,12 +23,24 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         //GET: Admin/ChucVus
-        public IActionResult Index(int page = 1)
+        //public IActionResult Index(int page = 1)
+        //{
+        //    page = page < 1 ? 1 : page;
+        //    int pageSize = 3;
+        //    var chucVus = _context.ChucVus.ToPagedList(page, pageSize);
+        //    return View(chucVus);
+        //}
+
+        public IActionResult Index(int? page)
         {
-            page = page < 1 ? 1 : page;
-            int pageSize = 3;
-            var chucVus = _context.ChucVus.ToPagedList(page, pageSize);
-            return View(chucVus);
+            var pageNumber = page == null || page <= 0 ? 1 : page.Value;
+            var pageSize = 20;
+            var lsChucVu = _context.ChucVus
+                .AsNoTracking()
+                .OrderByDescending(x => x.IdChucVu);
+            PagedList<ChucVu> models = new PagedList<ChucVu>(lsChucVu, pageNumber, pageSize);
+            ViewBag.CurrentPage = pageNumber;
+            return View(models);
         }
 
 
