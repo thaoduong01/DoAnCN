@@ -6,6 +6,7 @@ var lai = document.getElementById('lai');
 var body = document.getElementById('body');
 
 function final() {
+    body.innerHTML = "";
     var tienGoc = tienVay.value.toLocaleString();
     var thoiGianVay = time.value;
     var ngayGiaiNgan = new Date(giaingan.value);

@@ -23,6 +23,7 @@ builder.Services.Configure<IdentityOptions>(opt=>
     opt.SignIn.RequireConfirmedAccount = true;
 });
 
+builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 builder.Services.AddTransient<IStorageService, FileStorageService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -50,7 +51,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+
 app.UseAuthorization();
+app.UseSession();
 
 app.UseEndpoints(endpoints =>
 {

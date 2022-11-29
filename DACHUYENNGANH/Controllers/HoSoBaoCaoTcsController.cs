@@ -121,7 +121,7 @@ namespace DACHUYENNGANH.Controllers
                 HopDongMuaBan = await SaveFile(request.HopDongMuaBan),
                 SaoKeTknh = await SaveFile(request.SaoKeTknh),
                 NgayNhanHs = DateTime.Now,
-                BctaiChinh = await SaveFile(request.BctaiChinh),
+                BctaiChinh = await SaveFile(request.BctaiChinh)
 
 
             };
@@ -162,35 +162,35 @@ namespace DACHUYENNGANH.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdBctc,ToVat,HopDongSdld,HopDongMuaBan,SaoKeTknh,NgayNhanHs,BctaiChinh,IdHsvay")] HoSoBaoCaoTc hoSoBaoCaoTc)
+        public async Task<IActionResult> Edit(int id, [FromForm] HoSoBaoCaoTCEditRequest request)
         {
-            if (id != hoSoBaoCaoTc.IdBctc)
+            var hoso = _context.HoSoBaoCaoTcs.Find(id);
+
+            if(request.ToVat != null)
             {
-                return NotFound();
+                hoso.ToVat = await SaveFile(request.ToVat);
+            }
+            if (request.HopDongSdld != null)
+            {
+                hoso.HopDongSdld = await SaveFile(request.HopDongSdld);
+            }
+            if (request.HopDongMuaBan != null)
+            {
+                hoso.HopDongMuaBan = await SaveFile(request.HopDongMuaBan);
+            }
+            if (request.SaoKeTknh != null)
+            {
+                hoso.SaoKeTknh = await SaveFile(request.SaoKeTknh);
+            }
+            if (request.BctaiChinh != null)
+            {
+                hoso.BctaiChinh = await SaveFile(request.BctaiChinh);
             }
 
-            if (!ModelState.IsValid)
-            {
-                try
-                {
-                    _context.Update(hoSoBaoCaoTc);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HoSoBaoCaoTcExists(hoSoBaoCaoTc.IdBctc))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
-            }
-            ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay", hoSoBaoCaoTc.IdHsvay);
-            return View(hoSoBaoCaoTc);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Cập nhật thông tin Hồ sơ thất bại!!");
+            return View(request);
         }
 
         // GET: HoSoBaoCaoTcs/Delete/5

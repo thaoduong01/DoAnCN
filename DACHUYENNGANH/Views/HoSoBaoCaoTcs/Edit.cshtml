@@ -18,6 +18,7 @@
         <form asp-action="Edit" class="card shadow" style="margin: auto; width: 80% ; padding: 10px;" method="post" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdBctc" />
+            <input type="hidden" asp-for="NgayNhanHs" />
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Mã Hồ Sơ Báo Cáo Tài Chính</label>
                 <input type="text" disabled="true" class="form-control" asp-for="IdBctc">
@@ -42,10 +43,10 @@
                 <label style="text-align: center;">Sao Kê TKNH</label>
                 <input type="file" accept=".pdf" class="form-control" asp-for="SaoKeTknh">
             </div>
-           @* <div class="form-group" style="line-height: 3;">
+            <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Ngày Nhận Hồ Sơ</label>
-                <input type="datetime" class="form-control" asp-for="NgayNhanHs">
-            </div>*@
+                <input type="datetime" disabled="true" class="form-control" asp-for="NgayNhanHs">
+            </div>
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Báo Cáo Tài Chính</label>
                 <input type="file" accept=".pdf" class="form-control" asp-for="BctaiChinh">

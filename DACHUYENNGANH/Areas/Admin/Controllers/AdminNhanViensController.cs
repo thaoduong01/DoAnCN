@@ -170,6 +170,9 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
 
+
+
+
         // GET: Admin/AdminNhanViens/Edit/5
         public async Task<IActionResult> Edit(string id)
         {
