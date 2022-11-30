@@ -1,5 +1,6 @@
 ﻿using DACHUYENNGANH.Models;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 
 namespace DACHUYENNGANH.Areas.Admin.Controllers
 {
@@ -20,10 +21,11 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
         public IActionResult Index()
         {
-            if (HttpContext.Session.GetString("TenDangNhap") == null)
+            if (HttpContext.Session.GetString("IdChucVu") != "NVIT1" && HttpContext.Session.GetString("IdChucVu") != "GDV01")
             {
-
+                return RedirectToAction("Login", "Home");
             }
+
             ViewBag.IdChucVu = HttpContext.Session.GetString("TenDangNhap");
 
             return View();
@@ -42,7 +44,10 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             if (nhanVien.TenDangNhap != null && nhanVien.MatKhau != null)
             {
                 nhanVien.MatKhau = CreateMD5(nhanVien.MatKhau);
-                var nhanvien = _context.NhanViens.FirstOrDefault(x => x.TenDangNhap == nhanVien.TenDangNhap && x.MatKhau == nhanVien.MatKhau);
+                NhanVien nhanvien = _context.NhanViens.Where(x => x.TenDangNhap == nhanVien.TenDangNhap && x.MatKhau == nhanVien.MatKhau).FirstOrDefault();
+
+
+                //var nhanvien = _context.NhanViens.FirstOrDefault(x => x.TenDangNhap == nhanVien.TenDangNhap && x.MatKhau == nhanVien.MatKhau);
                 if (nhanvien == null)
                 {
                     ViewBag.Mesage = "Đăng nhập không thành công!!!";
@@ -52,7 +57,8 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                 HttpContext.Session.SetString("TenDangNhap", nhanvien.TenDangNhap);
                 HttpContext.Session.SetString("IdChucVu", nhanvien.IdChucVu);
 
-                return RedirectToAction("Index");
+
+                return RedirectToAction("IndexAdmin");
 
             }
 

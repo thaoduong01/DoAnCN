@@ -28,7 +28,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string search, string iddn, string idnv)
+        public IActionResult Index(string search, string iddn, string idnv, DateTime fromdate, DateTime todate)
         {
             ViewData["Getchucvudetails"] = search;
             ViewBag.DoanhNghiep = _context.DoanhNghieps;
@@ -43,11 +43,27 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                       on s.IdDoanhNghiep equals i.IdDoanhNghiep
                       select new { s.IdDoanhNghiep, s.IdHsvay, s.IdNhanVien, s.LaiSuat, s.NgayBdvay, s.NgayKt, s.SoTienVay };
 
-            if (!string.IsNullOrEmpty(search))
-            {
-                ket = ket.Where(x => x.IdHsvay.Contains(search) || x.IdDoanhNghiep.Contains(search) || x.IdNhanVien.Contains(search)).OrderByDescending(x => x.NgayBdvay);
+            DateTime dateTimeNull = new DateTime(1, 1, 0001, 0, 0, 0);
 
+            if (fromdate != dateTimeNull && todate != dateTimeNull)
+            {
+                ket = ket.Where(x => x.NgayBdvay >= fromdate && x.NgayBdvay <= todate);
             }
+            if (fromdate == dateTimeNull && todate != dateTimeNull)
+            {
+                ket = ket.Where(x => x.NgayBdvay <= todate);
+            }
+            if (fromdate != dateTimeNull && todate == dateTimeNull)
+            {
+                ket = ket.Where(x => x.NgayBdvay >= fromdate);
+            }
+
+
+            //if (!string.IsNullOrEmpty(search))
+            //{
+            //    ket = ket.Where(x => x.IdHsvay.Contains(search) || x.IdDoanhNghiep.Contains(search) || x.IdNhanVien.Contains(search)).OrderByDescending(x => x.NgayBdvay);
+
+            //}
             if (iddn != null && idnv != null)
             {
                 ket = ket.Where(x => x.IdNhanVien == idnv || x.IdDoanhNghiep == iddn).OrderByDescending(x => x.NgayBdvay);

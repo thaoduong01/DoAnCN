@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol.Core.Types;
+using System;
 using System.Configuration;
 
 
@@ -23,6 +24,7 @@ builder.Services.Configure<IdentityOptions>(opt=>
     opt.SignIn.RequireConfirmedAccount = true;
 });
 
+builder.Services.AddHttpContextAccessor();
 builder.Services.AddDistributedMemoryCache();
 builder.Services.AddSession(options => options.IdleTimeout = TimeSpan.FromMinutes(30));
 builder.Services.AddTransient<IStorageService, FileStorageService>();
@@ -53,6 +55,7 @@ app.UseRouting();
 
 
 app.UseAuthorization();
+
 app.UseSession();
 
 app.UseEndpoints(endpoints =>

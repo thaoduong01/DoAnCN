@@ -1,4 +1,6 @@
-﻿@model IEnumerable<DACHUYENNGANH.Models.HoSoBaoCaoTc>
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@model IEnumerable<DACHUYENNGANH.Models.HoSoBaoCaoTc>
+@using Microsoft.AspNetCore.Http;
 
 @{
     ViewData["Title"] = "Index";
@@ -14,9 +16,12 @@
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoBaoCaoTcs" asp-action="Edit">Hồ Sơ Báo Cáo Tài Chính</a></li>
                 <li class="breadcrumb-item active">Danh Sách Hồ Sơ Báo Cáo Tài Chính</li>
             </ol>
-             <p class="btn btn-outline-secondary">
-                <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
-            </p>
+            @if (@HttpContextAccessor.HttpContext.Session.GetString("IdChucVu") != "NVIT1")
+            {
+                <p class="btn btn-outline-secondary">
+                    <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
+                </p>
+            }
             <div class="card mb-4">
 
                 <div class="card-header">
@@ -105,7 +110,9 @@
                                                     <td>
                                                         <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdBctc"><i class="fa-solid fa-pen-to-square"></i></a>
                                                         <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdBctc"><i class="fa-solid fa-circle-info"></i></a>
-                                                        <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdBctc"><i class="fa-solid fa-trash"></i></a>
+                                                        @if (@HttpContextAccessor.HttpContext.Session.GetString("IdChucVu") != "GDV01"){
+                                                            <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdBctc"><i class="fa-solid fa-trash"></i></a>
+                                                        }
                                                     </td>
                                                 </tr>
                                             </tbody>

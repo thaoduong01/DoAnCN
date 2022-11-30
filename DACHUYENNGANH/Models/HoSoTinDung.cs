@@ -14,7 +14,7 @@ namespace DACHUYENNGANH.Models
         public string IdHstinDung { get; set; } = null!;
 
         [DataType(DataType.Date)]
-        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dddd dd/MM/yyyy}")]
         public DateTime NgayNhanHs { get; set; }
         public double PhiMoThe { get; set; }
         public string ChuKy { get; set; } = null!;

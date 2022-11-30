@@ -27,18 +27,11 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index(string search, string iddn, string idnv)
+        public IActionResult Index(string search, string iddn, string idnv, DateTime fromdate, DateTime todate)
         {
             ViewData["Getchucvudetails"] = search;
             ViewBag.KhachHang = _context.KhachHangCaNhans;
             ViewBag.NhanVien = _context.NhanViens;
-            /*var hsvay = from x in _context.HoSoVayDoanhNghieps select x*/
-
-            //DateTime fromdate = DateTime.Now.AddDays(-100);
-
-            //DateTime todate = DateTime.Now;
-
-            //var data = _context.HoSoTinDungs.Where(m => m.NgayNhanHs >= fromdate && m.NgayNhanHs <= todate);
 
             var ketDN = from s in _context.HoSoTinDungs
                         join i in _context.KhachHangCaNhans
@@ -46,7 +39,20 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                         join l in _context.NhanViens
                         on s.IdNhanVien equals l.IdNhanVien
                         select new { s.IdKhachHangCaNhan, s.NgayNhanHs, s.IdHstinDung, s.ChuKy, s.PhiMoThe, s.IdNhanVien };
+            DateTime dateTimeNull = new DateTime(1,1,0001,0,0,0);
 
+            if(fromdate != dateTimeNull && todate != dateTimeNull)
+            {
+                ketDN = ketDN.Where(x => x.NgayNhanHs >= fromdate && x.NgayNhanHs <= todate);
+            }
+            if(fromdate == dateTimeNull && todate != dateTimeNull)
+            {
+                ketDN = ketDN.Where(x => x.NgayNhanHs <= todate);
+            }
+            if (fromdate != dateTimeNull && todate == dateTimeNull)
+            {
+                ketDN = ketDN.Where(x => x.NgayNhanHs >= fromdate);
+            }
 
             if (!string.IsNullOrEmpty(search))
             {
