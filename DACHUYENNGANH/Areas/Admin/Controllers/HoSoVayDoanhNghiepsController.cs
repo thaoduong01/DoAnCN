@@ -122,6 +122,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                hoSoVayDoanhNghiep.IdNhanVien = HttpContext.Session.GetString("IdNhanVien").ToString();
                 hoSoVayDoanhNghiep.IdHsvay = GetIDHD.GetIDHopDong();
                 _context.Add(hoSoVayDoanhNghiep);
                 await _context.SaveChangesAsync();

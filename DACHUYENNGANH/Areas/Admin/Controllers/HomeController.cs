@@ -19,6 +19,12 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
 
             return View();
         }
+        public IActionResult LogOut()
+        {
+            HttpContext.Session.Clear();
+
+            return  RedirectToAction("Login");
+        }
         public IActionResult Index()
         {
             if (HttpContext.Session.GetString("IdChucVu") != "NVIT1" && HttpContext.Session.GetString("IdChucVu") != "GDV01")
@@ -54,8 +60,9 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                     return View();
                 }
 
-                HttpContext.Session.SetString("TenDangNhap", nhanvien.TenDangNhap);
+                HttpContext.Session.SetString("TenNhanVien", nhanvien.TenNhanVien);
                 HttpContext.Session.SetString("IdChucVu", nhanvien.IdChucVu);
+                HttpContext.Session.SetString("IdNhanVien", nhanvien.IdNhanVien);
 
 
                 return RedirectToAction("IndexAdmin");

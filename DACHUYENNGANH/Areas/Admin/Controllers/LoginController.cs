@@ -44,6 +44,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
                 }
 
                 HttpContext.Session.SetString("TenDangNhap", nhanvien.TenDangNhap);
+                HttpContext.Session.SetString("TenNhanVien", nhanvien.TenNhanVien);
                 HttpContext.Session.SetString("IdChucVu", nhanvien.IdChucVu);
 
                 return RedirectToAction("Index");
