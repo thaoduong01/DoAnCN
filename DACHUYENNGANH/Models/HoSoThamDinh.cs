@@ -8,11 +8,9 @@ namespace DACHUYENNGANH.Models
     {
         public int IdHsthamDinh { get; set; }
         public double SoTienThamDinh { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayThamDinh { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanHoSo { get; set; }

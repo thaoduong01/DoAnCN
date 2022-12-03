@@ -14,12 +14,13 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Danh Sách Chức Vụ</h1>
+           
             <ol class="breadcrumb mb-4">
                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="ChucVus" asp-action="Index">Chức Vụ @*: page @CurrentPage*@</a></li>
                 <li class="breadcrumb-item active">Danh Sách Chức Vụ</li>
             </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold; text-align: center">Danh Sách Chức Vụ</h1>
              <p class="btn btn-outline-secondary">
                 <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
             </p>
@@ -103,18 +104,7 @@
                         @*@Html.PagedListPager(Model, page => Url.Action("Index", "ChucVus", new{page}))*@
                     </div>
                 </div>
-                    <div class="col-sm-12 col-md-7" style="float: right;">
-                        <div class="pagination">
-                            <a href="#">«</a>
-                            <a href="#">1</a>
-                            <a class="active" href="#">2</a>
-                            <a href="#">3</a>
-                            <a href="#">4</a>
-                            <a href="#">5</a>
-                            <a href="#">6</a>
-                            <a href="#">»</a>
-                        </div>
-                    </div>
+
             </div>
         </div>
     </div>

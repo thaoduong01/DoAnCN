@@ -15,43 +15,44 @@
                 <li class="breadcrumb-item active">Thông Tin Doanh Nghiệp</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Doanh Nghiệp</h1>
-            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 20px;line-height: 2.5;">
+            <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 20px;line-height: 2.5;">
                 <div class="card-body">
                     <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
                         <table style="color: #1F618D;font-weight: bold; font-size: 15px;">
                             <tbody>
                                 <tr>
-                                    <td>Doanh Nghiệp: </td>
-                                    <td style="padding: 7px;">@Model.TenDoanhNghiep</td>
-                                </tr>
-                                <tr>
-                                    <td>Mã Doanh Nghiệp: </td>
+                                    <td style="text-align:left">Mã Doanh Nghiệp: </td>
                                     <td style="padding:7px;">@Model.IdDoanhNghiep</td>
                                 </tr>
                                 <tr>
-                                    <td>Người Đại Diện: </td>
+                                    <td style="text-align:left">Doanh Nghiệp: </td>
+                                    <td style="padding: 7px;">@Model.TenDoanhNghiep</td>
+                                </tr>
+                               
+                                <tr>
+                                    <td style="text-align:left">Người Đại Diện: </td>
                                     <td style="padding:7px;">@Model.TenNguoiDaiDien</td>
                                 </tr>
                                 <tr>
-                                    <td>CMND/CCCD: </td>
+                                    <td style="text-align:left">CMND/CCCD: </td>
                                     <td style="padding: 7px;">@Model.CmndCccd</td>
                                 </tr>
                                 <tr>
-                                    <td>Địa Chỉ: </td>
+                                    <td style="text-align:left">Địa Chỉ: </td>
                                     <td style="padding:7px;">@Model.DiaChi</td>
                                 </tr>
                                 <tr>
-                                    <td>SĐT: </td>
+                                    <td style="text-align:left">SĐT: </td>
                                     <td style="padding: 7px;">@Model.Sdt</td>
                                 </tr>
                                 <tr>
-                                    <td>Email: </td>
+                                    <td style ="text-align:left">Email: </td>
                                     <td style="padding:7px;">@Model.Email</td>
                                 </tr>
-                                <tr>
-                                    <td>Mã Khách Hàng: </td>
+                                @*<tr>
+                                    <td style="text-align:left">Mã Khách Hàng: </td>
                                     <td style="padding:7px;">@Model.IdKhachHangNavigation.IdKhachHang</td>
-                                </tr>
+                                </tr>*@
                             </tbody>
                         </table>
                         <div style="color: #1F618D;font-weight: bold; font-size: 15px;">

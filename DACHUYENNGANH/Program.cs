@@ -1,4 +1,5 @@
 using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Interface;
 using DACHUYENNGANH.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -6,7 +7,6 @@ using Microsoft.Extensions.DependencyInjection;
 using NuGet.Protocol.Core.Types;
 using System;
 using System.Configuration;
-
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<DAChuyenNganhContext>(options =>
@@ -22,6 +22,13 @@ builder.Services.Configure<IdentityOptions>(opt=>
     opt.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromSeconds(10);
     opt.Lockout.MaxFailedAccessAttempts =5 ;
     opt.SignIn.RequireConfirmedAccount = true;
+   
+});
+builder.Services.AddOptions();
+builder.Services.AddTransient<IDatabaseRepo, HSVayDoanhNghiepRepository>();
+builder.Services.Configure<AppDbConnection>(opt =>
+{
+    opt.GetConnectionString = builder.Configuration.GetConnectionString("QLNH");
 });
 
 builder.Services.AddHttpContextAccessor();
@@ -31,6 +38,15 @@ builder.Services.AddTransient<IStorageService, FileStorageService>();
 builder.Services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
 
+//builder.Services.AddTransient<IDatabaseRepo, HSVayDoanhNghiepRepository>();
+IHostBuilder CreateHostBuilder(string[] args) => Host.CreateDefaultBuilder(args)
+    .ConfigureWebHostDefaults(webBuilder =>
+    {
+        webBuilder.UseContentRoot(Directory.GetCurrentDirectory());
+        webBuilder.UseWebRoot("wwwroot");
+
+    });
+builder.Services.AddScoped<IDatabaseRepo, HSVayDoanhNghiepRepository>();
 var mvcBuilder = builder.Services.AddRazorPages();
 
 if (builder.Environment.IsDevelopment())
@@ -65,11 +81,15 @@ app.UseEndpoints(endpoints =>
 });
 
 app.MapControllerRoute(
+
     name: "areas",
     pattern: "{area:exists}/{controller=Home}/{action=IndexAdmin}/{id?}");
 app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+//name: "default",
+//pattern: "{controller=Report}/{action=Print}/{id?}");
+
+name: "default",
+pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
 

@@ -9,11 +9,9 @@ namespace DACHUYENNGANH.Models
         public string Stk { get; set; } = null!;
         public string TenTk { get; set; } = null!;
         public string SoTrenThe { get; set; } = null!;
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayMoThe { get; set; }
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanThe { get; set; }

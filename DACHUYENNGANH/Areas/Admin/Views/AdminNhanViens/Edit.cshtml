@@ -11,9 +11,9 @@
         <div class="container-fluid px-4" style="text-align: center;">
            
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="AdminNhanViens" asp-action="Edit">Nhân Viên</a></li>
-                <li class="breadcrumb-item active" >Sửa Thông Tin Nhân Viên</li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="AdminNhanVien" asp-action="Index">Nhân Viên</a></li>
+                <li class="breadcrumb-item active">Sửa Thông Tin Nhân Viên</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Sửa Thông Tin Nhân Viên</h1>
         </div>
@@ -23,10 +23,7 @@
                 <label style="text-align: center;">Tên Nhân Viên</label>
                 <input type="text" class="form-control" asp-for="TenNhanVien">
             </div>
-            <div class="form-group" style="line-height: 3;">
-                <label style="text-align: center;">Mã Nhân Viên</label>
-                <input type="text" class="form-control" asp-for="IdNhanVien">
-            </div>
+            <input type="hidden" asp-for="IdNhanVien" />
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Giới Tính</label>
                 <select class="form-control" value="@Model.GioiTinh" asp-for="GioiTinh" aria-label="Default select example">
@@ -38,7 +35,7 @@
             </div>
             <div class="form-group" style="line-height: 3;">
                 <label style="text-align: center;">Ngày Sinh</label>
-                <input type="date" asp-for="NgaySinh" class="form-control" />
+                <input type="text" asp-for="NgaySinh" class="form-control" />
                 <span asp-validation-for="NgaySinh" class="text-danger"></span>
             </div>
             <div class="form-group" style="line-height: 3;">

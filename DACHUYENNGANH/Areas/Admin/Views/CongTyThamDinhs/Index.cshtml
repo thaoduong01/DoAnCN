@@ -8,12 +8,13 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Danh Sách Công Ty Thẩm Định</h1>
+           
             <ol class="breadcrumb mb-4">
                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="CongTyThamDinhs" asp-action="Index">Công Ty Thẩm Định</a></li>
                 <li class="breadcrumb-item active">Danh Sách Công Ty Thẩm Định</li>
             </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold; text-align: center">Danh Sách Công Ty Thẩm Định</h1>
              <p class="btn btn-outline-secondary">
                 <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
             </p>
@@ -61,7 +62,7 @@
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            @*<th scope="col">Mã Công Ty Thẩm Định</th>*@
+                                            <th scope="col">Mã Công Ty Thẩm Định</th>
                                             <th scope="col">Tên Công Ty</th>
                                             <th scope="col">Địa Chỉ</th>
                                             <th scope="col">Email</th>
@@ -75,7 +76,7 @@
                                         {
                                             <tbody>
                                                 <tr>
-                                                    @*<td>@item.IdCongTy</td>*@
+                                                    <td>@item.IdCongTy</td>
                                                     <td>@item.TenCty</td>
                                                     <td>@item.DiaChi</td>
                                                     <td>@item.Email</td>

@@ -8,47 +8,48 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4" style="text-align: center;">
-            <h1 class="mt-4">  Thông Tin Khách Hàng Cá Nhân</h1>
+          
             <ol class="breadcrumb mb-4">
                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="KhachHangCaNhans" asp-action="Index">Khách Hàng Cá Nhân</a></li>
                 <li class="breadcrumb-item active">  Thông Tin Khách Hàng Cá Nhân</li>
             </ol>
-            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold; text-align: center">  Thông Tin Khách Hàng Cá Nhân</h1>
+            <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 10px; padding: 2rem">
                 <div class="card-body">
-                    <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
+                    <div class="table-responsive" style="margin: auto; width: 80%; padding: 10px; padding: 2rem">
                         <table>
                             <tbody>
                                 <tr>
-                                    <td>Mã Khách Hàng: </td>
+                                    <td style="text-align:left">Mã Khách Hàng: </td>
                                     <td style="padding:7px;">@Model.IdKhachHangCaNhan</td>
                                 </tr>
                                 <tr>
-                                    <td>Mã Số Thuế: </td>
+                                    <td style="text-align:left">Mã Số Thuế: </td>
                                     <td style="padding:7px;">@Model.IdKhachHangNavigation.MaSoThue</td>
                                 </tr>
                                 <tr>
-                                    <td>Tên Khách Hàng: </td>
+                                    <td style="text-align:left">Tên Khách Hàng: </td>
                                     <td style="padding:7px;">@Model.TenKh</td>
                                 </tr>
                                 <tr>
-                                    <td>Ngày Sinh: </td>
+                                    <td style="text-align:left">Ngày Sinh: </td>
                                     <td style="padding:7px;">@Html.DisplayFor(model => model.NgaySinh)</td>
                                 </tr>
                                 <tr>
-                                    <td>Giới Tính: </td>
+                                    <td style="text-align:left">Giới Tính: </td>
                                     <td style="padding: 7px;">@Model.GioiTinh</td>
                                 </tr>
                                 <tr>
-                                    <td>SĐT: </td>
+                                    <td style="text-align:left">SĐT: </td>
                                     <td style="padding:7px;">@Model.Sdt</td>
                                 </tr>
                                 <tr>
-                                    <td>CMND/CCCD: </td>
+                                    <td style="text-align:left">CMND/CCCD: </td>
                                     <td style="padding:7px;">@Model.CmndCccd</td>
                                 </tr>
                                 <tr>
-                                    <td>Địa Chỉ: </td>
+                                    <td style="text-align:left">Địa Chỉ: </td>
                                     <td style="padding:7px;">@Model.DiaChi</td>
                                 </tr>
                             </tbody>

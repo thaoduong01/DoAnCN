@@ -6,6 +6,10 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Models.HoSo;
+using DACHUYENNGANH.TienIch;
+using System.Net.Http.Headers;
 
 namespace DACHUYENNGANH.Areas.Admin.Controllers
 {
@@ -13,10 +17,12 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
     public class HoSoTinDungsController : Controller
     {
         private readonly DAChuyenNganhContext _context;
-
-        public HoSoTinDungsController(DAChuyenNganhContext context)
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
+        public HoSoTinDungsController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: Admin/HoSoTinDungs
@@ -111,18 +117,39 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
+        
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoTinDungCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoTinDung);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdKhachHangCaNhan"] = new SelectList(_context.KhachHangCaNhans, "IdKhachHangCaNhan", "TenKh", hoSoTinDung.IdKhachHangCaNhan);
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien", hoSoTinDung.IdNhanVien);
-            return View(hoSoTinDung);
+            HoSoTinDung hs = new HoSoTinDung()
+            {
+                IdNhanVien = request.IdNhanVien,
+                IdKhachHangCaNhan = request.IdKhachHangCaNhan,
+                NgayNhanHs = DateTime.Now,
+                PhiMoThe = request.PhiMoThe,
+                ChuKy = await SaveFile(request.ChuKy),
+
+
+            };
+            hs.IdHstinDung = GetIDTD.GetIDTinDung();
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ thất bại!!");
+            return View(request);
+        }
+
+
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
         }
 
         // GET: Admin/HoSoTinDungs/Edit/5
@@ -148,36 +175,18 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("IdHstinDung,NgayNhanHs,PhiMoThe,ChuKy,IdNhanVien,IdKhachHangCaNhan")] HoSoTinDung hoSoTinDung)
+        public async Task<IActionResult> Edit(string id, [FromForm] HoSoTinDungEditRequest request)
         {
-            if (id != hoSoTinDung.IdHstinDung)
-            {
-                return NotFound();
-            }
+            var hoso = _context.HoSoTinDungs.Find(id);
 
-            if (!ModelState.IsValid)
+            if (request.ChuKy != null)
             {
-                try
-                {
-                    _context.Update(hoSoTinDung);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HoSoTinDungExists(hoSoTinDung.IdHstinDung))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                hoso.ChuKy = await SaveFile(request.ChuKy);
             }
-            ViewData["IdKhachHangCaNhan"] = new SelectList(_context.KhachHangCaNhans, "IdKhachHangCaNhan", "TenKh", hoSoTinDung.IdKhachHangCaNhan);
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "TenNhanVien", hoSoTinDung.IdNhanVien);
-            return View(hoSoTinDung);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Cập nhật thông tin Hồ sơ thất bại!!");
+            return View(request);
         }
 
         // GET: Admin/HoSoTinDungs/Delete/5

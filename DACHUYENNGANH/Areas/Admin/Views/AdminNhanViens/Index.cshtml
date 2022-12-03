@@ -9,12 +9,13 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Danh Sách Nhân Viên</h1>
+            
             <ol class="breadcrumb mb-4">
                 <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="AdminNhanVien" asp-action="Index">Nhân Viên</a></li>
                 <li class="breadcrumb-item active">Danh Sách Nhân Viên</li>
             </ol>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold; text-align:center">Danh Sách Nhân Viên</h1>
              <p class="btn btn-outline-secondary">
                 <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
             </p>
@@ -64,8 +65,9 @@
                                 <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr>
+                                            <th scope="col">Mã Nhân Viên</th>
                                             <th scope="col">Tên Nhân Viên</th>
-                                            @*<th scope="col">Mã Nhân Viên</th>*@
+                                          
                                             <th scope="col">Ngày Sinh</th>
                                             <th scope="col">Giới Tính</th>
                                             <th scope="col">CMND/CCCD</th>
@@ -97,8 +99,9 @@
                                         {
                                             <tbody>
                                                 <tr>
+                                                    <td>@item.IdNhanVien</td>
                                                     <td>@item.TenNhanVien</td>
-                                                    @*<td>@item.IdNhanVien</td>*@
+                                                   
                                                     <td>@Html.DisplayFor(modelItem => item.NgaySinh)</td>
                                                     <td>@item.GioiTinh</td>
                                                     <td>@item.CmndCccd</td>
@@ -110,7 +113,7 @@
                                                     <td>
                                                         <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdNhanVien"><i class="fa-solid fa-pen-to-square"></i></a>
                                                         <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdNhanVien"><i class="fa-solid fa-circle-info"></i></a>
-                                                        <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdNhanVien"><i class="fa-solid fa-trash"></i></a>
+                                                       
                                                     </td>
                                                 </tr>
                                             </tbody>

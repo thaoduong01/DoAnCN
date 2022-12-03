@@ -1,4 +1,7 @@
-﻿<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+﻿@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
+
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/Admin">
@@ -83,20 +86,23 @@
     </li>
 
     <!--QLNV-->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQLNV"
+    @if (@HttpContextAccessor.HttpContext.Session.GetString("IdChucVu") != "GDV01"){
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseQLNV"
            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fa-solid fa-users"></i>
-            <span>Quản Lý Nhân Viên</span>
-        </a>
-        <div id="collapseQLNV" class="collapse" aria-labelledby="headingQLNV" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Quản Lý Nhân Viên:</h6>
-                <a class="collapse-item" asp-area="Admin" asp-controller="AdminNhanViens" asp-action="Index">Nhân Viên</a>
-                <a class="collapse-item" asp-area="Admin" asp-controller="ChucVus" asp-action="Index">Chức Vụ của Nhân Viên</a>
+                <i class="fa-solid fa-users"></i>
+                <span>Quản Lý Nhân Viên</span>
+            </a>
+            <div id="collapseQLNV" class="collapse" aria-labelledby="headingQLNV" data-parent="#accordionSidebar">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <h6 class="collapse-header">Quản Lý Nhân Viên:</h6>
+                    <a class="collapse-item" asp-area="Admin" asp-controller="AdminNhanViens" asp-action="Index">Nhân Viên</a>
+                    <a class="collapse-item" asp-area="Admin" asp-controller="ChucVus" asp-action="Index">Chức Vụ của Nhân Viên</a>
+                </div>
             </div>
-        </div>
-    </li>
+        </li>
+    }
+    
 
     <!-- Divider -->
     <hr class="sidebar-divider">

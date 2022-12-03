@@ -13,9 +13,9 @@
                 <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="CongTyThamDinhs" asp-action="Index">Công Ty Thẩm Định</a></li>
                 <li class="breadcrumb-item active">Thay Đổi Công Ty Thẩm Định</li>
             </ol>
-            <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thay Đổi Công Ty Thẩm Định</h1>
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold; text-align:center">Thay Đổi Công Ty Thẩm Định</h1>
         </div>
-        <form asp-action="Edit" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;">
+        <form asp-action="Edit" class="card shadow" style="margin: auto; width: 80%; padding: 10px; padding: 2rem" >
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdCongTy" />
             <div class="form-group" style="line-height: 3;">
@@ -34,7 +34,7 @@
                 <label style="text-align: center;">Email</label>
                 <input type="text" class="form-control" asp-for="Email">
             </div>
-            @*<input type="hidden" asp-for="IdCongTy" />*@
+            
             <div class="form-group row">
                 <div class="col-sm-10" style="line-height: 5; text-align: center;">
                     <button type="submit" class="btn btn-primary">Thay Đổi</button>

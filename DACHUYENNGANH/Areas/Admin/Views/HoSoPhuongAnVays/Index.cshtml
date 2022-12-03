@@ -10,11 +10,11 @@
         <div class="container-fluid px-4">
             <h1 class="mt-4">Danh Sách Hồ Sơ Phương Án Vay</h1>
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoPhuongAnVays" asp-action="Index">Hồ Sơ Phương Án Vay</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoPhuongAnVays" asp-action="Index">Hồ Sơ Phương Án Vay</a></li>
                 <li class="breadcrumb-item active">Danh Sách Hồ Sơ Phương Án Vay</li>
             </ol>
-             <p class="btn btn-outline-secondary">
+            <p class="btn btn-outline-secondary">
                 <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
             </p>
             <div class="card mb-4">
@@ -65,10 +65,10 @@
                                     <thead>
                                         <tr>
                                             @*<th scope="col">Mã Hồ Sơ Phương Án Vay</th>*@
-                                             <th scope="col">Hồ Sơ Vay</th>
                                             <th scope="col">Hồ Sơ Vay</th>
-                                            <th scope="col">Phương Án Kinh Doanh</th>
-                                            <th scope="col">Kế Hoạch Trả Nợ</th>
+
+                                            @*<th scope="col">Phương Án Kinh Doanh</th>
+                                            <th scope="col">Kế Hoạch Trả Nợ</th>*@
                                             <th scope="col">Ngày Nhận Hồ Sơ</th>
                                             <th scope="col"></th>
                                         </tr>
@@ -81,13 +81,13 @@
                                                 <tr>
                                                     @*<td>@item.IdPhapLy</td>*@
                                                     <td>@item.IdHsvay</td>
-                                                    <td>@item.PhuongAnKd</td>
-                                                    <td>@item.KeHoachTraNo</td>
+                                                    @*<td>@item.PhuongAnKd</td>
+                                            <td>@item.KeHoachTraNo</td>*@
                                                     <td>@Html.DisplayFor(modelItem => item.NgayNhanHs)</td>
                                                     <td>
                                                         <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdHspavay"><i class="fa-solid fa-pen-to-square"></i></a>
                                                         <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdHspavay"><i class="fa-solid fa-circle-info"></i></a>
-                                                        <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdHspavay"><i class="fa-solid fa-trash"></i></a>
+
                                                     </td>
                                                 </tr>
                                             </tbody>

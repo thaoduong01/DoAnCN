@@ -12,7 +12,6 @@ namespace DACHUYENNGANH.Models
         public string BbhopHd { get; set; } = null!;
         public string TenKttruong { get; set; } = null!;
         public string CmndCccdKtt { get; set; } = null!;
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanHs { get; set; }

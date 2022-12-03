@@ -9,20 +9,20 @@
     <main>
         <div class="container-fluid px-4" style="text-align: center;">
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTaiSanDbs" asp-action="Index">Hồ Sơ Tài Sản Đảm Bảo</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoTaiSanDbs" asp-action="Index">Hồ Sơ Tài Sản DB</a></li>
                 <li class="breadcrumb-item active">Thông Tin Hồ Sơ Tài Sản Đảm Bảo</li>
             </ol>
             <h1 class="mt-4" style="color: #1F618D;font-weight: bold;">Thông Tin Hồ Sơ Tài Sản Đảm Bảo</h1>
-            <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
+            <div class="card mb-4" class="card shadow" style="margin: auto; width: 80%; padding: 10px;line-height: 2.5;">
                 <div class="card-body">
                     <div class="table-responsive" style="margin: auto; width: 60%; line-height: 2.5;">
                         <table style="color: #1F618D;font-weight: bold; font-size: 15px;">
                             <tbody>
-                                <tr>
-                                    <td>Mã Hồ Sơ Tài Sản Đảm Bảo: </td>
-                                    <td style="padding:7px;">@Model.IdHsdb</td>
-                                </tr>
+                                @*<tr>
+                                <td>Mã Hồ Sơ Tài Sản Đảm Bảo: </td>
+                                <td style="padding:7px;">@Model.IdHsdb</td>
+                                </tr>*@
                                 <tr>
                                     <td>Mã Hồ Sơ Vay: </td>
                                     <td style="padding:7px;">@Model.IdHsvay</td>
@@ -33,27 +33,45 @@
                                 </tr>
                                 <tr>
                                     <td>Sổ Nhà Đất: </td>
-                                    <td style="padding: 7px;">@Model.SoNhaDat</td>
+                                    <td style="padding: 7px;">
+                                        <iframe class="img-thumbnail" src="@Model.SoNhaDat"></iframe>
+                                        <a href="@Model.SoNhaDat" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Đơn Chứng Nhận Sở Hữu Đất: </td>
-                                    <td style="padding:7px;">@Model.DcnsoHuuDat</td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.DcnsoHuuDat"></iframe>
+                                        <a href="@Model.DcnsoHuuDat" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Hóa Đơn Tài Sản: </td>
-                                    <td style="padding:7px;">@Model.HdtaiSan</td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.HdtaiSan"></iframe>
+                                        <a href="@Model.HdtaiSan" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Thông Báo Nộp Phí Nhà Đất: </td>
-                                    <td style="padding:7px;">@Model.TbnopPhiNd</td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.TbnopPhiNd"></iframe>
+                                        <a href="@Model.TbnopPhiNd" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Sổ Đăng Kiểm: </td>
-                                    <td style="padding:7px;">@Model.SoDangKiem</td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.SoDangKiem"></iframe>
+                                        <a href="@Model.SoDangKiem" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Chứng Nhận Bảo Hiểm: </td>
-                                    <td style="padding:7px;">@Model.ChungNhanBaoHiem</td>
+                                    <td style="padding:7px;">
+                                        <iframe class="img-thumbnail" src="@Model.ChungNhanBaoHiem"></iframe>
+                                        <a href="@Model.ChungNhanBaoHiem" target="_blank">Xem</a>
+                                    </td>
                                 </tr>
                                 <tr>
                                     <td>Ngày Nhận Hồ Sơ: </td>
@@ -65,7 +83,7 @@
                 </div>
             </div>
             <div style="color: #1F618D;font-weight: bold; font-size: 15px;">
-                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+                <a asp-action="Index">Trở Về</a>
             </div>
         </div>
     </main>

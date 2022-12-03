@@ -1,5 +1,6 @@
 ﻿@model IEnumerable<DACHUYENNGANH.Models.HoSoTinDung>
-
+@inject IHttpContextAccessor HttpContextAccessor
+@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
@@ -8,13 +9,15 @@
 <div id="layoutSidenav_content">
     <main>
         <div class="container-fluid px-4">
-            <h1 class="mt-4">Danh Sách Hồ Sơ Tín Dụng</h1>
+
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTinDungs" asp-action="Index">Hồ Sơ Tín Dụng</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i
+                        class="fa-solid fa-house"></i>Home</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoTinDungs" asp-action="Index">Hồ Sơ Tín Dụng</a></li>
                 <li class="breadcrumb-item active">Danh Sách Hồ Sơ Tín Dụng</li>
             </ol>
-             <p class="btn btn-outline-secondary">
+            <h1 class="mt-4" style="color: #1F618D;font-weight: bold; text-align:center">Danh Sách Hồ Sơ Tín Dụng</h1>
+            <p class="btn btn-outline-secondary">
                 <a asp-action="Create"><i class="fa-solid fa-plus"></i></a>
             </p>
             <div class="card mb-4">
@@ -28,18 +31,23 @@
                         <div class="row">
                             <div class="col-sm-12 col-md-6">
                                 <div class="dataTables_length" id="dataTable_length">
-                                    <form method="get" asp-action="Index">
+                                    <label>
+                                        Search:
+                                        <form method="get" asp-action="Index">
                                             <div class="input-group rounded">
-                                                <label>
-                                                    Start Date: 
-                                                    <input type="date" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." name="fromdate" />
-                                                </label>
-                                                <label>
-                                                    End Date:
-                                                <input type="date" class="form-control rounded" aria-label="Search" aria-describedby="search-addon" placeholder="Search for..." name="todate"/>
-                                                </label>
+                                                <input type="search" class="form-control rounded" aria-label="Search"
+                                                    aria-describedby="search-addon" placeholder="Search for..."
+                                                    @*value="@ViewData["Getnhanviendetails"]"*@ name="search" />
                                             </div>
                                         </form>
+                                    </label>
+                                    @if(@HttpContextAccessor.HttpContext.Session.GetString("IdChucVu") != "GDV01")
+                                    {
+                                        <div>
+                                            <button class="btn btn-success" onclick="Inbaocao()">In báo cáo</button>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
                             <div class="col-sm-12 col-md-6">
@@ -48,10 +56,16 @@
                                         <br />
                                         <form method="get" asp-action="Index">
                                             <div class="input-group-append">
-                                                <select asp-items="@(new SelectList(ViewBag.KhachHang, "IdKhachHangCaNhan", "TenKh"))" name="iddn" class="custom-select custom-select-sm form-control form-control-sm">
+                                                <select
+                                                    asp-items="@(new SelectList(ViewBag.KhachHang, "IdKhachHangCaNhan", "TenKh"))"
+                                                    name="iddn"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
                                                     <option>Khách Hàng</option>
                                                 </select>
-                                                <select asp-items="@(new SelectList(ViewBag.NhanVien, "IdNhanVien", "TenNhanVien"))" name="idnv" class="custom-select custom-select-sm form-control form-control-sm">
+                                                <select
+                                                    asp-items="@(new SelectList(ViewBag.NhanVien, "IdNhanVien", "TenNhanVien"))"
+                                                    name="idnv"
+                                                    class="custom-select custom-select-sm form-control form-control-sm">
                                                     <option>Nhân Viên</option>
                                                 </select>
                                                 <div class="input-group-append">
@@ -66,15 +80,34 @@
                                 <a asp-action="Index" class="btn btn-default m-r-5">Show All</a>
                             </div>
                         </div>
+                        <style>
+                            @@media print {
+                                body * {
+                                    visibility: hidden;
+                                }
+
+                                .hideWhenPrint,
+                                .hideWhenPrint * {
+                                    visibility: hidden;
+                                }
+
+                                .print-container,
+                                .print-container * {
+
+                                    visibility: visible;
+                                }
+                            }
+                        </style>
                         <div class="row">
                             <div class="col-sm-12">
-                                <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
+                                <table class="table table-bordered dataTable" id="dataTable" width="100%"
+                                    cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                                     <thead>
                                         <tr>
-                                            @*<th scope="col">Mã Hồ Sơ Tín Dụng</th>
-                                            <th scope="col">Khách Hàng</th>
-                                            <th scope="col">Nhân Viên</th>*@
-                                            <th scope="col">Chữ Ký</th>
+                                            <th scope="col">Mã Hồ Sơ Tín Dụng</th>
+                                            @* <th scope="col">Khách Hàng</th>
+                                                <th scope="col">Nhân Viên</th>*@
+                                            @*<th scope="col">Chữ Ký</th>*@
                                             <th scope="col">Phí Mở Thẻ</th>
                                             <th scope="col">Ngày Nhận Hồ Sơ</th>
                                             <th scope="col"></th>
@@ -82,25 +115,37 @@
                                     </thead>
                                     @if (Model != null)
                                     {
+                                        double tong = 0;
                                         @foreach (var item in Model)
                                         {
                                             <tbody>
                                                 <tr>
-                                                    @*<td>@item.IdHstinDung</td>
-                                                    <td>@item.IdKhachHangCaNhanNavigation.TenKh</td>
-                                            <td>@item.IdNhanVienNavigation.TenNhanVien</td>*@
-                                                    <td>@item.ChuKy</td>
+                                                    <td>@item.IdHstinDung</td>
+                                                    @*<td>@item.IdKhachHangCaNhanNavigation.TenKh</td>
+                                                        <td>@item.IdNhanVienNavigation.TenNhanVien</td>*@
+                                                    @*<td>@item.ChuKy</td>*@
                                                     <td>@item.PhiMoThe</td>
-                                                    <td>@Html.DisplayFor(modelItem => item.NgayNhanHs)</td>
-                                                    <td>
-                                                        <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdHstinDung"><i class="fa-solid fa-pen-to-square"></i></a>
-                                                        <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdHstinDung"><i class="fa-solid fa-circle-info"></i></a>
-                                                        <a class="btn btn-outline-success" asp-area="Admin" asp-action="Delete" asp-route-id="@item.IdHstinDung"><i class="fa-solid fa-trash"></i></a>
+                                                    <td>@item.NgayNhanHs</td>
+                                                    <td class="hideWhenPrint">
+                                                        <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit"
+                                                    asp-route-id="@item.IdHstinDung"><i
+                                                        class="fa-solid fa-pen-to-square"></i></a>
+                                                        <a class="btn btn-outline-secondary" asp-area="Admin"
+                                                    asp-action="Details" asp-route-id="@item.IdHstinDung"><i
+                                                        class="fa-solid fa-circle-info"></i></a>
+
                                                     </td>
                                                 </tr>
                                             </tbody>
-
+                                            tong += item.PhiMoThe;
                                         }
+                                        <tbody>
+                                            <tr>
+                                                <td>Tổng:</td>
+                                                <td>@tong</td>
+                                                <td></td>
+                                            </tr>
+                                        </tbody>
                                     }
                                 </table>
                             </div>
@@ -112,6 +157,3 @@
     </main>
 
 </div>
-
-
-

@@ -10,8 +10,8 @@
         <div class="container-fluid px-4" style="text-align: center;">
             <h1 class="mt-4">Xóa Thông Tin Hồ Sơ Tài Sản DB</h1>
             <ol class="breadcrumb mb-4">
-                <a asp-area="Admin" asp-controller="HomeAdmin" asp-action="Index" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
-                <li class="breadcrumb-item"><a asp-area="Admin" asp-controller="HoSoTaiSanDbs" asp-action="Index">Hồ Sơ Tài Sản DB</a></li>
+                <a asp-controller="Home" asp-action="IndexUser" class="breadcrumb-item"><i class="fa-solid fa-house"></i>HomeAdmin</a>
+                <li class="breadcrumb-item"><a asp-controller="HoSoTaiSanDbs" asp-action="Index">Hồ Sơ Tài Sản DB</a></li>
                 <li class="breadcrumb-item active">Xóa Thông Tin Hồ Sơ Tài Sản DB</li>
             </ol>
             <div class="card mb-4" style="margin: auto; width: 80%; border: 3px solid black; padding: 10px;line-height: 2.5;">
@@ -65,16 +65,16 @@
                 </div>
             </div>
             @*<form asp-action="Delete" style="text-align: center;">
-                <input type="hidden" asp-for="IdHsdb" />
-                <input type="submit" value="Xóa" class="btn btn-danger" /> |
-                <a asp-area="Admin" asp-action="Index">Trở Về</a>
+            <input type="hidden" asp-for="IdHsdb" />
+            <input type="submit" value="Xóa" class="btn btn-danger" /> |
+            <a asp-area="Admin" asp-action="Index">Trở Về</a>
             </form>*@
 
             <!-- Button trigger modal -->
             <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteModal">
                 Xóa
             </button>|
-            <a class="btn btn-primary" asp-area="Admin" asp-action="Index">Trở Về</a>
+            <a class="btn btn-primary" asp-action="Index">Trở Về</a>
 
             <!-- Modal -->
             <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
@@ -102,4 +102,3 @@
         </div>
     </main>
 </div>
-

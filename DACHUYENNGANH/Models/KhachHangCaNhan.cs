@@ -10,7 +10,6 @@ namespace DACHUYENNGANH.Models
         {
             HoSoTinDungs = new HashSet<HoSoTinDung>();
         }
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgaySinh { get; set; }

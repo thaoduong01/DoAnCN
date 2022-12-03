@@ -1,12 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
-using Microsoft.Net.Http.Headers;
+using DACHUYENNGANH.Helpers.FileManager;
+using DACHUYENNGANH.Models.HoSo;
+using System.Net.Http.Headers;
+using Microsoft.CodeAnalysis.Differencing;
 
 namespace DACHUYENNGANH.Areas.Admin.Controllers
 {
@@ -14,10 +20,13 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
     public class HoSoBaoCaoTcsController : Controller
     {
         private readonly DAChuyenNganhContext _context;
+        private readonly IStorageService _storageService;
+        private const string USER_CONTENT_FOLDER_NAME = "user-content";
 
-        public HoSoBaoCaoTcsController(DAChuyenNganhContext context)
+        public HoSoBaoCaoTcsController(DAChuyenNganhContext context, IStorageService storageService)
         {
             _context = context;
+            _storageService = storageService;
         }
 
         // GET: Admin/HoSoBaoCaoTcs
@@ -99,18 +108,39 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdBctc,ToVat,HopDongSdld,HopDongMuaBan,SaoKeTknh,NgayNhanHs,BctaiChinh,IdHsvay")] HoSoBaoCaoTc hoSoBaoCaoTc)
+        [Consumes("multipart/form-data")]
+        public async Task<IActionResult> Create([FromForm] HoSoBaoCaoTCCreateRequest request)
         {
             if (!ModelState.IsValid)
             {
-                _context.Add(hoSoBaoCaoTc);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                return View(request);
             }
-            ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay", hoSoBaoCaoTc.IdHsvay);
-            return View(hoSoBaoCaoTc);
+            HoSoBaoCaoTc hs = new HoSoBaoCaoTc()
+            {
+                IdHsvay = request.IdHsvay,
+                ToVat = await SaveFile(request.ToVat),
+                HopDongSdld = await SaveFile(request.HopDongSdld),
+                HopDongMuaBan = await SaveFile(request.HopDongMuaBan),
+                SaoKeTknh = await SaveFile(request.SaoKeTknh),
+                NgayNhanHs = DateTime.Now,
+                BctaiChinh = await SaveFile(request.BctaiChinh),
+
+
+            };
+            _context.Add(hs);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Thêm Hồ sơ thất bại!!");
+            return View(request);
         }
+        private async Task<string> SaveFile(IFormFile file)
+        {
+            var originalFileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
+            var fileName = $"{Guid.NewGuid()}{Path.GetExtension(originalFileName)}";
+            await _storageService.SaveFileAsync(file.OpenReadStream(), fileName);
+            return "/" + USER_CONTENT_FOLDER_NAME + "/" + fileName;
+        }
+
 
         // GET: Admin/HoSoBaoCaoTcs/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -134,35 +164,34 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdBctc,ToVat,HopDongSdld,HopDongMuaBan,SaoKeTknh,NgayNhanHs,BctaiChinh,IdHsvay")] HoSoBaoCaoTc hoSoBaoCaoTc)
+        public async Task<IActionResult> Edit(int id, [FromForm] HoSoBaoCaoTCEditRequest request)
         {
-            if (id != hoSoBaoCaoTc.IdBctc)
-            {
-                return NotFound();
-            }
+            var hoso = _context.HoSoBaoCaoTcs.Find(id);
 
-            if (!ModelState.IsValid)
+            if (request.ToVat != null)
             {
-                try
-                {
-                    _context.Update(hoSoBaoCaoTc);
-                    await _context.SaveChangesAsync();
-                }
-                catch (DbUpdateConcurrencyException)
-                {
-                    if (!HoSoBaoCaoTcExists(hoSoBaoCaoTc.IdBctc))
-                    {
-                        return NotFound();
-                    }
-                    else
-                    {
-                        throw;
-                    }
-                }
-                return RedirectToAction(nameof(Index));
+                hoso.ToVat = await SaveFile(request.ToVat);
             }
-            ViewData["IdHsvay"] = new SelectList(_context.HoSoVayDoanhNghieps, "IdHsvay", "IdHsvay", hoSoBaoCaoTc.IdHsvay);
-            return View(hoSoBaoCaoTc);
+            if (request.HopDongSdld != null)
+            {
+                hoso.HopDongSdld = await SaveFile(request.HopDongSdld);
+            }
+            if (request.HopDongMuaBan != null)
+            {
+                hoso.HopDongMuaBan = await SaveFile(request.HopDongMuaBan);
+            }
+            if (request.SaoKeTknh != null)
+            {
+                hoso.SaoKeTknh = await SaveFile(request.SaoKeTknh);
+            }
+            if (request.BctaiChinh != null)
+            {
+                hoso.BctaiChinh = await SaveFile(request.BctaiChinh);
+            }
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+            ModelState.AddModelError("", "Cập nhật thông tin Hồ sơ thất bại!!");
+            return View(request);
         }
 
         // GET: Admin/HoSoBaoCaoTcs/Delete/5

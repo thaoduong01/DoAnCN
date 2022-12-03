@@ -9,7 +9,6 @@ namespace DACHUYENNGANH.Models
         public int IdHspavay { get; set; }
         public string PhuongAnKd { get; set; } = null!;
         public string KeHoachTraNo { get; set; } = null!;
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanHs { get; set; }

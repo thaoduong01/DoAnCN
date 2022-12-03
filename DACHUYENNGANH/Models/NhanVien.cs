@@ -14,7 +14,6 @@ namespace DACHUYENNGANH.Models
 
         public string IdNhanVien { get; set; } = null!;
         public string TenNhanVien { get; set; } = null!;
-
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgaySinh { get; set; }

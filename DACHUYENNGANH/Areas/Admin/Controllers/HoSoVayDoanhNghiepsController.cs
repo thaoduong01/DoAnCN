@@ -124,6 +124,7 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
             {
                 hoSoVayDoanhNghiep.IdNhanVien = HttpContext.Session.GetString("IdNhanVien").ToString();
                 hoSoVayDoanhNghiep.IdHsvay = GetIDHD.GetIDHopDong();
+                hoSoVayDoanhNghiep.NgayBdvay = DateTime.Now;
                 _context.Add(hoSoVayDoanhNghiep);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));

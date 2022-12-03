@@ -19,6 +19,7 @@ namespace DACHUYENNGANH.Models
         [DataType(DataType.Date)]
         [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayBdvay { get; set; }
+
         public double SoTienVay { get; set; }
 
         [DataType(DataType.Date)]

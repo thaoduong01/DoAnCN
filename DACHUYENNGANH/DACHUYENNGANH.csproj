@@ -18,6 +18,10 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Remove="wwwroot\Reports\Report1.rdlc" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Include="Views\HoSoBaoCaoTcs\Create.cshtml" />
     <None Include="Views\HoSoBaoCaoTcs\Delete.cshtml" />
     <None Include="Views\HoSoBaoCaoTcs\Details.cshtml" />
@@ -48,19 +52,12 @@
     <None Include="Views\HoSoTinDungs\Details.cshtml" />
     <None Include="Views\HoSoTinDungs\Edit.cshtml" />
     <None Include="Views\HoSoTinDungs\Index.cshtml" />
-    <None Include="wwwroot\user-content\31020b6f-4fd9-4f4d-bd04-618144696f73.pdf" />
-    <None Include="wwwroot\user-content\427777df-0c71-4d79-b83b-015b577435e4.pdf" />
-    <None Include="wwwroot\user-content\4d545308-95e5-4832-9700-45f1b4889a2b.pdf" />
-    <None Include="wwwroot\user-content\6543330b-2d6e-4cfe-826b-ba444b456695.pdf" />
-    <None Include="wwwroot\user-content\8d45332d-a03c-461f-978d-7f849e3d7340.pdf" />
-    <None Include="wwwroot\user-content\b00f8429-7374-414a-8bb0-d64211a2b959.pdf" />
-    <None Include="wwwroot\user-content\c7edc8dd-d34a-43a9-b784-5d0e269b55bb.pdf" />
-    <None Include="wwwroot\user-content\e47eb374-2ba5-4665-b4c2-7c8d59f3db81.pdf" />
-    <None Include="wwwroot\user-content\fbe066b0-ad2d-4ed4-825b-a804e90c7a85.pdf" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
+    <PackageReference Include="Dapper" Version="2.0.4" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="6.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Session" Version="2.2.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.10" />
@@ -73,16 +70,30 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="150.1358.0" />
+    <PackageReference Include="Microsoft.ReportViewer.Common" Version="10.0.40219.1" />
+    <PackageReference Include="Microsoft.ReportViewer.Runtime.Common" Version="12.0.2402.15" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.10" />
     <PackageReference Include="Moment.js" Version="2.29.4" />
     <PackageReference Include="PagedList.Core.Mvc" Version="3.0.0" />
+    <PackageReference Include="ReportViewerCore.NETCore" Version="15.1.13" />
+    <PackageReference Include="System.CodeDom" Version="6.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.2" />
     <PackageReference Include="System.Runtime" Version="4.3.1" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="7.2.0" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\HoSo\Create\" />
-    <Folder Include="Models\HoSo\Edit\" />
+    <Folder Include="wwwroot\user-content\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\Reports\Report1.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot\Reports\Report2.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

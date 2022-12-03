@@ -60,13 +60,14 @@
                         <table class="table table-bordered dataTable" id="dataTable" width="100%" cellspacing="0" role="grid" aria-describedby="dataTable_info" style="width: 100%;">
                             <thead>
                                 <tr>
+                                    <th scope="col">Mã Doanh Nghiệp</th>
                                     <th scope="col">Doanh Nghiệp</th>
                                     <th scope="col">Người Đại Diện</th>
                                     <th scope="col">CMND/CCCD</th>
                                     <th scope="col">Địa Chỉ</th>
                                     <th scope="col">Email</th>
                                     <th scope="col">SĐT</th>
-                                    <th scope="col">Mã Khách Hàng</th>
+                                   @* <th scope="col">Mã Khách Hàng</th>*@
                                 </tr>
                             </thead>
                             @*<tfoot>
@@ -86,13 +87,14 @@
                                 {
                                     <tbody>
                                         <tr>
+                                            <td>@item.IdDoanhNghiep</td>
                                             <td>@item.TenDoanhNghiep</td>
                                             <td>@item.TenNguoiDaiDien</td>
                                             <td>@item.CmndCccd</td>
                                             <td>@item.DiaChi</td>
                                             <td>@item.Email</td>
                                             <td>@item.Sdt</td>
-                                            <td>@item.IdKhachHang</td>
+                                           @* <td>@item.IdKhachHang</td>*@
                                             <td>
                                                 <a class="btn btn-outline-primary" asp-area="Admin" asp-action="Edit" asp-route-id="@item.IdDoanhNghiep"><i class="fa-solid fa-pen-to-square"></i></a>
                                                 <a class="btn btn-outline-secondary" asp-area="Admin" asp-action="Details" asp-route-id="@item.IdDoanhNghiep"><i class="fa-solid fa-circle-info"></i></a>

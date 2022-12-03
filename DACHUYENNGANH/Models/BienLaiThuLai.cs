@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace DACHUYENNGANH.Models
 {
     public partial class BienLaiThuLai
     {
         public int IdBienLai { get; set; }
+        [DataType(DataType.Date)]
+        [DisplayFormat(ApplyFormatInEditMode = true, DataFormatString = "{0:dd/MM/yyyy}")]
         public DateTime NgayNhanLai { get; set; }
         public string IdNhanVien { get; set; } = null!;
         public string IdHsvay { get; set; } = null!;

@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using DACHUYENNGANH.Models;
+using DACHUYENNGANH.TienIch;
 
 namespace DACHUYENNGANH.Areas.Admin.Controllers
 {
@@ -100,6 +101,8 @@ namespace DACHUYENNGANH.Areas.Admin.Controllers
         {
             if (!ModelState.IsValid)
             {
+                khachHangCaNhan.IdKhachHangCaNhan = GetIDKHCN.GetIDByFullNameAnDobKHCN(khachHangCaNhan.TenKh, khachHangCaNhan.NgaySinh);
+                _context.Add(khachHangCaNhan);
                 _context.Add(khachHangCaNhan);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
